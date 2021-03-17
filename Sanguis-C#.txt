@@ -1,0 +1,18 @@
+         int PVmax = 200;
+         int PVactuels = PVmax;
+         int degatsRecus = Console.ReadLine();
+         int PVsacrifies = Console.ReadLine();
+            
+            if (degatsRecus != 0){
+                PVmax = PVmax-degatsRecus/2;
+            }
+            
+            if (PVsacrifies != 0){
+                PVmax = PVmax+PVsacrifies;
+            }
+            
+            
+            
+            
+            
+         Console.WriteLine("PV : " + PVactuels + "/" + PVmax);
