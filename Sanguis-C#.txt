@@ -1,16 +1,28 @@
          int PVmax = 200;
          int PVactuels = PVmax;
          int degatsRecus = Console.ReadLine();
-         int PVsacrifies = Console.ReadLine();
+         int PVsacrifies = 20% * PVactuels;
+         int Force = 16 ;
+         int Agilité = 16;
+         int degatsInfliges;
+         bool = armesImpregnes;
             
+         static void receptionDegats(){
             if (degatsRecus != 0){
-                PVmax = PVmax-degatsRecus/2;
+                PVactuels = PVactuels - degatsRecus; 
+                PVmax = PVmax - degatsRecus/2;
             }
-            
-            if (PVsacrifies != 0){
-                PVmax = PVmax+PVsacrifies;
-            }
-            
+         }  // fonction à déclencher quand des dégâts sont infligés au joueur soit quand le bouton "recevoir des dégâts" est enfoncé et qu'une une valeur est inscrite dans la textbox "degatsRecus".
+          
+          
+          static void SousArmureUneVictime (){
+                  armesImpregnes = true;
+                  if (armesImpregnes = true){
+                           PVmax = PVmax + PVsacrifies;
+                           degatsArmes = degatsArmes * 1.5
+                           PVsoignes = 0;
+                  }
+          }
             
             
             
