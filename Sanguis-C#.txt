@@ -1,5 +1,6 @@
          int PVmax = 200;
          int PVactuels = PVmax;
+         int PVsoignes;
          int degatsRecus = Console.ReadLine();
          int PVsacrifies = 20% * PVactuels;
          int Force = 16 ;
@@ -7,6 +8,10 @@
          int degatsInfliges;
          bool = armesImpregnes;
             
+         static void autoAttack(){
+                  degatsInfligés = degatsArmes;
+         }
+         
          static void receptionDegats(){
             if (degatsRecus != 0){
                 PVactuels = PVactuels - degatsRecus; 
@@ -18,6 +23,7 @@
           static void SousArmureUneVictime (){
                   armesImpregnes = true;
                   if (armesImpregnes = true){
+                           PVactuels = PVactuels - PVsacrifies
                            PVmax = PVmax + PVsacrifies;
                            degatsArmes = degatsArmes * 1.5
                            PVsoignes = 0;
