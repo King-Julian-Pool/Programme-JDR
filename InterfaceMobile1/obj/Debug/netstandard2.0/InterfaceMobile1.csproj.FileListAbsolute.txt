@@ -1,0 +1,14 @@
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\bin\Debug\netstandard2.0\InterfaceMobile1.deps.json
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\bin\Debug\netstandard2.0\InterfaceMobile1.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\bin\Debug\netstandard2.0\ref\InterfaceMobile1.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\bin\Debug\netstandard2.0\InterfaceMobile1.pdb
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.csprojAssemblyReference.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.AssemblyInfoInputs.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.AssemblyInfo.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.csproj.CoreCompileInputs.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\ref\InterfaceMobile1.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceMobile1\InterfaceMobile1\InterfaceMobile1\obj\Debug\netstandard2.0\InterfaceMobile1.pdb
