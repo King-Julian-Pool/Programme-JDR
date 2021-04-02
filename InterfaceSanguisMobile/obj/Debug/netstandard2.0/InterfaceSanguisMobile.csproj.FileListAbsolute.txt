@@ -1,0 +1,28 @@
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.deps.json
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\ref\InterfaceSanguisMobile.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.pdb
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.csprojAssemblyReference.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.AssemblyInfoInputs.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.AssemblyInfo.cs
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.csproj.CoreCompileInputs.cache
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\ref\InterfaceSanguisMobile.dll
+C:\Users\cleme\OneDrive\Documents\Visual Studio 2019\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.pdb
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.deps.json
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.dll
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\ref\InterfaceSanguisMobile.dll
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\bin\Debug\netstandard2.0\InterfaceSanguisMobile.pdb
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.csprojAssemblyReference.cache
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.AssemblyInfoInputs.cache
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.AssemblyInfo.cs
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.csproj.CoreCompileInputs.cache
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.dll
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\ref\InterfaceSanguisMobile.dll
+C:\Users\cleme\source\repos\InterfaceSanguisMobile\InterfaceSanguisMobile\InterfaceSanguisMobile\obj\Debug\netstandard2.0\InterfaceSanguisMobile.pdb

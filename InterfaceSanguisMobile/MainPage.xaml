@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InterfaceSanguisMobile.MainPage" Appearing="Page_Appearing">
+
+    <Grid>
+        <StackLayout>
+            <Frame BackgroundColor="Red" Padding="2" CornerRadius="0">
+                <Grid>
+                    <Entry x:Name="EntryPerso1" Text="Nom" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="0"/>
+                    <Label x:Name="EntryPerso2" Text="Sanguis" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" FontSize="24" Grid.Column="1"/>
+                    <Entry x:Name="EntryPerso3" Text="Niveau" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="2"/>
+                </Grid>
+            </Frame>
+            <Grid>
+                <StackLayout Grid.Column="0">
+                    <Label x:Name="LabelPv" Text="PVa/PVmax : 0/0" FontSize="16" Padding="10,10,30,0"/>
+                    <ProgressBar x:Name="ProgressBarPv" Margin="10,0,10,0"/>
+                    <Label x:Name="LabelBouclier" Text="Bouclier : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelArmure" Text="Armure : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelResistMagique" Text="Résist. Magique : 0" FontSize="16" Padding="10,0,30,0"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label x:Name="LabelForce" Text="Force : 0" FontSize="16" Padding="10,10,30,0"/>
+                    <Label x:Name="LabelAgilite" Text="Agilité : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelInitiative" Text="Initiative : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelPm" Text="PM : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Button x:Name="ButtonModifStats" Clicked="ButtonModifStats_Click" Text="Modifier stats"/>
+                    <Button x:Name="ButtonDegatsSoins" Clicked="ButtonDegatsSoins_Click" Text="Dégâts/soins"/>
+                </StackLayout>
+            </Grid>
+
+            <Label x:Name="LabelInfoTitre" Text="Informations :" FontSize="16" FontAttributes="Bold"/>
+            <Label x:Name="LabelInfo" FontSize="24"/>
+
+            <Label x:Name="LabelActions" Text="Actions :" FontSize="16" Padding="10,50,30,0" FontAttributes="Bold"/>
+            <Button x:Name="ButtonAutoAttack" Text="Auto-Attack" Clicked="ButtonAutoAttack_Click"/>
+            <Button x:Name="ButtonComp1" Clicked="ButtonComp1_Click" Text="Cela ne t'est pas si vital" />
+            <Button x:Name="ButtonComp2" Clicked="ButtonComp2_Click" Text="Pluie de sang" />
+            <Button x:Name="ButtonComp3" Clicked="ButtonComp3_Click" Text="Sous l'armure il y a une victime" />
+        </StackLayout>
+        <StackLayout x:Name="PopUpModifStats" VerticalOptions="End" Margin="0,50" BackgroundColor="Red" IsVisible="false">
+            <Grid>
+                <Button x:Name="ButtonArmure" Clicked="ButtonArmure_Click" Text="Armure" Grid.Row="0" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonResistMagique" Clicked="ButtonResistMagique_Click" Text="Résist. Magique" Grid.Row="0" Grid.Column="1" FontSize="12"/>
+                <Button x:Name="ButtonForce" Clicked="ButtonForce_Click" Text="Force" Grid.Row="0" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonAgilite" Clicked="ButtonAgilite_Click" Text="Agilité" Grid.Row="1" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonInitiative" Clicked="ButtonInitiative_Click" Text="Initiative" Grid.Row="1" Grid.Column="1" FontSize="12"/>
+                <Button x:Name="ButtonPm" Clicked="ButtonPm_Click" Text="PM" Grid.Row="1" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonPVactuels" Clicked="ButtonPVactuels_Click" Text="PV actuels" Grid.Row="2" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonPVmax" Clicked="ButtonPVmax_Click" Text="PV max" Grid.Row="2" Grid.Column="1" FontSize="12"/>
+                <Button x:Name="ButtonBouclier" Clicked="ButtonBouclier_Click" Text="Bouclier" Grid.Row="2" Grid.Column="2" FontSize="12"/>
+                <Label Text="La stat selectionnée prendra la valeur :" Grid.Row="3" Grid.ColumnSpan="2" TextColor="White"/>
+                <Entry x:Name="EntryModifStats" Grid.Row="3" Grid.Column="2" Keyboard="Numeric" TextColor="White" HorizontalTextAlignment="Center" Margin="30,0"/>
+            </Grid>
+        </StackLayout>
+        <StackLayout x:Name="PopUpDegatsSoins" VerticalOptions="End" Margin="0,52" BackgroundColor="Red" IsVisible="false">
+            <Button x:Name="SubirDegats" Clicked="ButtonSubirDegats_Click" Text="Subir des dégâts"/>
+            <Button x:Name="ButtonHeal" Clicked="ButtonHeal_Click" Text="Heal"/>
+            <Button x:Name="ButtonGainBouclier" Clicked="ButtonGainBouclier_Click" Text="Gain de bouclier"/>
+            <Entry x:Name="EntryDegatsRecus" Keyboard="Numeric" HorizontalTextAlignment="Center" Margin="150,0"/>
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>
