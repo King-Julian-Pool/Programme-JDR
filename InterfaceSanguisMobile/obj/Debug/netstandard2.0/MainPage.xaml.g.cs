@@ -194,6 +194,15 @@ namespace InterfaceSanguisMobile {
         private global::Xamarin.Forms.Button ButtonAnnulerDegatsComp1;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.RadioButton RadioButtonComp1EchecCritique;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.RadioButton RadioButtonComp1CoupNormal;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.RadioButton RadioButtonComp1CoupCritique;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.StackLayout PopUpDegatsReelsComp2;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
@@ -285,6 +294,9 @@ namespace InterfaceSanguisMobile {
             EntryDegatsReelsComp1 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "EntryDegatsReelsComp1");
             ButtonValiderDegatsComp1 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "ButtonValiderDegatsComp1");
             ButtonAnnulerDegatsComp1 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "ButtonAnnulerDegatsComp1");
+            RadioButtonComp1EchecCritique = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RadioButton>(this, "RadioButtonComp1EchecCritique");
+            RadioButtonComp1CoupNormal = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RadioButton>(this, "RadioButtonComp1CoupNormal");
+            RadioButtonComp1CoupCritique = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RadioButton>(this, "RadioButtonComp1CoupCritique");
             PopUpDegatsReelsComp2 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.StackLayout>(this, "PopUpDegatsReelsComp2");
             LabelDegatsReelsComp2 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Label>(this, "LabelDegatsReelsComp2");
             EntryDegatsReelsComp2 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "EntryDegatsReelsComp2");

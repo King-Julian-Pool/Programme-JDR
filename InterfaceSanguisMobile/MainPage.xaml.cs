@@ -449,17 +449,7 @@ namespace InterfaceSanguisMobile
                     {
                         case true:
 
-                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-                            if ((PVactuels + degatsInfliges) < PVmax)
-                            {
-                                PVactuels = PVactuels + degatsInfliges;
-                            }
-                            else
-                            {
-                                PVactuels = PVmax;
-                            }
 
-                            CdComp1 = 2;
 
                             break;
 
@@ -481,10 +471,6 @@ namespace InterfaceSanguisMobile
                     {
                         case true:
 
-                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts mais vous ne vous soignez pas.\nLa cible est terrifiée.";
-
-                            CdComp1 = 2;
-
                             break;
 
                         case false:
@@ -504,18 +490,7 @@ namespace InterfaceSanguisMobile
                     {
                         case true:
 
-                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-                            PVmax = PVmax + degatsInfliges;
-                            if ((PVactuels + degatsInfliges) < PVmax)
-                            {
-                                PVactuels = PVactuels + degatsInfliges;
-                            }
-                            else
-                            {
-                                PVactuels = PVmax;
-                            }
 
-                            CdComp1 = 2;
 
                             break;
 
@@ -532,7 +507,57 @@ namespace InterfaceSanguisMobile
         }
         private void ButtonValiderDegatsComp1_Click(object sender, EventArgs e)
         {
+            string DegatsReelsComp1 = EntryDegatsReelsComp1.Text;
+            int DegatsReelsComp1Num;
 
+            if (int.TryParse(DegatsReelsComp1, out DegatsReelsComp1Num) == false)
+            {
+                EntryDegatsReelsComp1.Text = "E";
+            }
+
+
+
+            if (RadioButtonComp1EchecCritique.IsChecked == true)
+            {
+                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts mais vous ne vous soignez pas.\nLa cible est terrifiée.";
+
+                CdComp1 = 2;
+            }
+
+            else if (RadioButtonComp1CoupNormal.IsChecked == true)
+            {
+
+                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + DegatsReelsComp1Num + "PV.\nLa cible est terrifiée.";
+                if ((PVactuels + DegatsReelsComp1Num) < PVmax)
+                {
+                    PVactuels = PVactuels + DegatsReelsComp1Num;
+                }
+                else
+                {
+                    PVactuels = PVmax;
+                }
+
+                CdComp1 = 2;
+
+            }
+
+            else if (RadioButtonComp1CoupCritique.IsChecked == true)
+            {
+
+                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + DegatsReelsComp1Num + "PV.\nVos PVmax augmentent de " + DegatsReelsComp1Num + ".\nLa cible est terrifiée.";
+                if ((PVactuels + DegatsReelsComp1Num) < PVmax)
+                {
+                    PVactuels = PVactuels + DegatsReelsComp1Num;
+                }
+                else
+                {
+                    PVactuels = PVmax;
+                }
+
+                CdComp1 = 2;
+            }
+            affichageInitial();
+            PopUpDegatsReelsComp1.IsVisible = false;
         }
         private void ButtonAnnulerDegatsComp1_Click(object sender, EventArgs e)
         {

@@ -106,9 +106,9 @@
             <Entry x:Name="EntryDegatsReelsComp1" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
             <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
             <Button x:Name="ButtonAnnulerDegatsComp1" Text="Annuler" Clicked="ButtonAnnulerDegatsComp1_Click"/>
-            <RadioButton Content="Echec critique"/>
-            <RadioButton Content="Coup normal"/>
-            <RadioButton Content="Coup critique"/>
+            <RadioButton x:Name="RadioButtonComp1EchecCritique" Content="Echec critique"/>
+            <RadioButton x:Name="RadioButtonComp1CoupNormal" Content="Coup normal"/>
+            <RadioButton x:Name="RadioButtonComp1CoupCritique" Content="Coup critique"/>
             <Label/>
         </StackLayout>
         
