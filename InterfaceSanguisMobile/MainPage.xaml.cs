@@ -19,14 +19,18 @@ namespace InterfaceSanguisMobile
         int PVmax = 200;
         int PVactuels = 200;
         int Bouclier = 10;
-        int Armure = 10;
-        int ResistMagique = 10;
-        int Force = 16;
-        int Agilité = 16;
+        int Armure = 6;
+        int ResistMagique = -3;
+        int Intelligence = 10;
+        int Force = 18;
+        int Agilité = 18;
         int Initiative = 20;
         int Pm = 5;
         int degatsInfliges;
-        int degatsArmes;
+        int degatsBaseArmes = 12;
+        int degatsTotauxArmes;
+        int CdComp1;
+        int CdComp2;
 
         // ------------- Définition des fonctions ------------- 
         void couleurBarrePV()
@@ -57,12 +61,40 @@ namespace InterfaceSanguisMobile
             AnimProgressBarPv(ProgressBarPv);
             LabelBouclier.Text = "Bouclier : " + Bouclier;
             LabelArmure.Text = "Armure : " + Armure;
-            LabelResistMagique.Text = "Résistance Magique : " + ResistMagique;
+            LabelResistMagique.Text = "Résit. Magique : " + ResistMagique;
 
+            LabelIntelligence.Text = "Intelligence : " + Intelligence;
             LabelForce.Text = "Force : " + Force;
             LabelAgilite.Text = "Agilité : " + Agilité;
             LabelInitiative.Text = "Initiative : " + Initiative;
             LabelPm.Text = "PM : " + Pm;
+
+            LabelCdComp1.Text = "" + CdComp1;
+            LabelCdComp2.Text = "" + CdComp2;
+
+            if (CdComp1 != 0)
+            {
+                ButtonComp1.IsEnabled = false;
+                LabelCdComp1.BackgroundColor = Color.Red;
+            }
+            else
+            {
+                ButtonComp1.IsEnabled = true;
+                LabelCdComp1.BackgroundColor = Color.Default;
+                LabelCdComp1.Text = "";
+            }
+
+            if (CdComp2 != 0)
+            {
+                ButtonComp2.IsEnabled = false;
+                LabelCdComp2.BackgroundColor = Color.Red;
+            }
+            else
+            {
+                ButtonComp2.IsEnabled = true;
+                LabelCdComp2.BackgroundColor = Color.Default;
+                LabelCdComp2.Text = "";
+            }
         }
 
         void heal()
@@ -152,23 +184,57 @@ namespace InterfaceSanguisMobile
             }
             return ModifStatsNum;
         }
-
-        void autoAttack()
+        int defDegatsBaseArmes()
         {
-            degatsArmes = 1 + Force + Agilité;
-            degatsInfliges = degatsArmes;
-            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges/2 + "PV"; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-            
-            if ((PVactuels + degatsInfliges / 2) < PVmax)
+            string DegatsBaseArmes = EntryDegatsBaseArmes.Text;
+            int DegatsBaseArmesNum;
+
+            if (int.TryParse(DegatsBaseArmes, out DegatsBaseArmesNum) == false)
             {
-                PVactuels = PVactuels + degatsInfliges / 2;
+                EntryDegatsBaseArmes.Text = "E";
+            }
+            return DegatsBaseArmesNum;
+        }
+        int defDegatsTotauxArmes()
+        {
+            degatsBaseArmes = defDegatsBaseArmes();
+            int varForce;
+            int varAgilite;
+
+            if (SwitchForce.IsToggled == true)
+            {
+                string ArmeForce = EntryArmeForce.Text;
+                int ArmeForceNum;
+                if (int.TryParse(ArmeForce, out ArmeForceNum) == false)
+                {
+                    EntryArmeForce.Text = "E";
+                }
+                varForce = Force / ArmeForceNum ;
             }
             else
             {
-                PVactuels = PVmax;
+                varForce = 0;
             }
-            affichageInitial();
-            return;
+            if (SwitchAgilite.IsToggled == true)
+            {
+                string ArmeAgilite = EntryArmeAgilite.Text;
+                int ArmeAgiliteNum;
+                if (int.TryParse(ArmeAgilite, out ArmeAgiliteNum) == false)
+                {
+                    EntryArmeAgilite.Text = "E";
+                }
+
+
+                varAgilite = Agilité / ArmeAgiliteNum;
+            }
+            else
+            {
+                varAgilite = 0;
+            }
+
+            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite; 
+
+            return degatsTotauxArmes;
         }
 
         // ------------- Assignation des contrôles ------------- 
@@ -189,6 +255,7 @@ namespace InterfaceSanguisMobile
             else
             {
                 PopUpModifStats.IsVisible = false;
+                PopUpModifArme.IsVisible = false;
             }
         }
 
@@ -256,6 +323,25 @@ namespace InterfaceSanguisMobile
             affichageInitial();
         }
 
+        private void ButtonIntelligence_Click(object sender, EventArgs e)
+        {
+            Intelligence = modifStats();
+            LabelInfo.Text = "Votre intelligence passe à " + modifStats();
+            affichageInitial();
+        }
+
+        private void ButtonArme_Click(object sender, EventArgs e)
+        {
+            if (PopUpModifArme.IsVisible == false)
+            {
+                PopUpModifArme.IsVisible = true;
+            }
+            else
+            {
+                PopUpModifArme.IsVisible = false;
+            }
+        }
+
 
 
         private void ButtonDegatsSoins_Click(object sender, EventArgs e)
@@ -289,19 +375,61 @@ namespace InterfaceSanguisMobile
 
 
 
-        private void ButtonAutoAttack_Click(object sender, EventArgs e)
+        private async void ButtonAutoAttack_Click(object sender, EventArgs e)
         {
-            autoAttack();
+            degatsInfliges = defDegatsTotauxArmes();
+
+            bool AutoAttack = await DisplayAlert("Auto-Attack", "Voulez-vous infliger jusqu'à " + degatsInfliges + " dégâts et vous soigner jusqu'à " + degatsInfliges / 2 + "PV?", "Oui", "Non");
+
+            switch (AutoAttack)
+            {
+                case true:
+
+                    PopUpDegatsReelsAutoAttack.IsVisible = true;
+
+                    break;
+
+                case false:
+
+                    break;
+            }
         }
+        private void ButtonValiderDegatsAutoAttack_Click(object sender, EventArgs e)
+        {
 
- //       private void ButtonComp1_Click(object sender, EventArgs e)
- //       {
+            string DegatsReelsAutoAttack = EntryDegatsReelsAutoAttack.Text;
+            int DegatsReelsAutoAttackNum;
 
- //           affichageInitial();
-//        }
+            if (int.TryParse(DegatsReelsAutoAttack, out DegatsReelsAutoAttackNum) == false)
+            {
+                EntryDegatsReelsAutoAttack.Text = "E";
+            }
+
+            LabelInfo.Text = "Vous infligez " + DegatsReelsAutoAttackNum + " dégâts et vous soignez de " + DegatsReelsAutoAttackNum / 2 + "PV";
+
+            if ((PVactuels + DegatsReelsAutoAttackNum / 2) < PVmax)
+            {
+                PVactuels = PVactuels + DegatsReelsAutoAttackNum / 2;
+            }
+            else
+            {
+                PVactuels = PVmax;
+            }
+            affichageInitial();
+
+            PopUpDegatsReelsAutoAttack.IsVisible = false;
+
+            return;
+        }
+        private void ButtonAnnulerDegatsAutoAttack_Click(object sender, EventArgs e)
+        {
+            PopUpDegatsReelsAutoAttack.IsVisible = false;
+        }
 
         private async void ButtonComp1_Click(object sender, EventArgs e)
         {
+            PopUpDegatsReelsComp1.IsVisible = true;
+
             var actionSheet = await DisplayActionSheet("","Annuler",null,"Echec critique","Coup normal", "Coup critique");
 
             switch (actionSheet)
@@ -313,14 +441,31 @@ namespace InterfaceSanguisMobile
                 case "Coup normal":
 
                     degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-                    if ((PVactuels + degatsInfliges) < PVmax)
+
+
+                    bool Comp1a = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts et vous soigner de " + degatsInfliges + "PV?\nLa cible sera terrifiée.", "Oui", "Non");
+
+                    switch (Comp1a)
                     {
-                        PVactuels = PVactuels + degatsInfliges;
-                    }
-                    else
-                    {
-                        PVactuels = PVmax;
+                        case true:
+
+                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
+                            if ((PVactuels + degatsInfliges) < PVmax)
+                            {
+                                PVactuels = PVactuels + degatsInfliges;
+                            }
+                            else
+                            {
+                                PVactuels = PVmax;
+                            }
+
+                            CdComp1 = 2;
+
+                            break;
+
+                        case false:
+
+                            break;
                     }
 
                     break;
@@ -328,22 +473,55 @@ namespace InterfaceSanguisMobile
                 case "Echec critique":
 
                     degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts mais vous ne vous soignez pas.\nLa cible est terrifiée.";
+
+
+                    bool Comp1b = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts sans vous soigner?\nLa cible sera terrifiée.", "Oui", "Non");
+
+                    switch (Comp1b)
+                    {
+                        case true:
+
+                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts mais vous ne vous soignez pas.\nLa cible est terrifiée.";
+
+                            CdComp1 = 2;
+
+                            break;
+
+                        case false:
+
+                            break;
+                    }
 
                     break;
 
                 case "Coup critique":
 
                     degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + "\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-                    PVmax = PVmax + degatsInfliges;
-                    if ((PVactuels + degatsInfliges) < PVmax)
+
+                    bool Comp1c = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts et vous soigner de " + degatsInfliges + "PV?\nVos PVmax augmenteront de " + degatsInfliges + ".\nLa cible sera terrifiée.", "Oui", "Non");
+
+                    switch (Comp1c)
                     {
-                        PVactuels = PVactuels + degatsInfliges;
-                    }
-                    else
-                    {
-                        PVactuels = PVmax;
+                        case true:
+
+                            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
+                            PVmax = PVmax + degatsInfliges;
+                            if ((PVactuels + degatsInfliges) < PVmax)
+                            {
+                                PVactuels = PVactuels + degatsInfliges;
+                            }
+                            else
+                            {
+                                PVactuels = PVmax;
+                            }
+
+                            CdComp1 = 2;
+
+                            break;
+
+                        case false:
+
+                            break;
                     }
 
                     break;
@@ -352,14 +530,37 @@ namespace InterfaceSanguisMobile
             affichageInitial();
 
         }
+        private void ButtonValiderDegatsComp1_Click(object sender, EventArgs e)
+        {
 
-        private void ButtonComp2_Click(object sender, EventArgs e)
+        }
+        private void ButtonAnnulerDegatsComp1_Click(object sender, EventArgs e)
+        {
+            PopUpDegatsReelsComp1.IsVisible = false;
+        }
+
+        private async void ButtonComp2_Click(object sender, EventArgs e)
         {
             degatsInfliges = 1 + Force / 3 + Agilité / 3;
-            LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à tous les ennemis et vous soignez de " + (PVmax - PVactuels) + "PV."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-            PVactuels = PVmax;
-            affichageInitial();
+            bool Comp2 = await DisplayAlert("Pluie de sang", "Voulez-vous infliger " + degatsInfliges + " dégâts à tous les ennemis et vous soigner de " + (PVmax - PVactuels) + "PV?", "Oui", "Non");
+
+            switch (Comp2)
+            {
+                case true:
+
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à tous les ennemis et vous soignez de " + (PVmax - PVactuels) + "PV."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
+                    PVactuels = PVmax;
+                    CdComp2 = 6;
+                    affichageInitial();
+
+                    break;
+
+                case false:
+
+                    break;
+            }
         }
+
         private async void ButtonComp3_Click(object sender, EventArgs e)
         {
             var actionSheet = await DisplayActionSheet("","Annuler",null,"Echec critique","Coup normal");
@@ -374,35 +575,122 @@ namespace InterfaceSanguisMobile
                 case "Coup normal":
 
                     PVsacrifiés = 20 * PVactuels / 100;
-                    degatsArmes = 1 + Force + Agilité;
-                    degatsInfliges = degatsArmes + degatsArmes / 2;
+                    degatsInfliges = defDegatsTotauxArmes() + defDegatsTotauxArmes() /2;
 
                     if (PVactuels <= PVmax / 4)
                     {
-                        LabelInfo.Text = "Vous ne sacrifiez pas de PV et infligez " + degatsInfliges + " dégâts.\nVous gagnez un bouclier de " + (degatsInfliges / 2);
-                        Bouclier = Bouclier + degatsInfliges / 2;
+                        bool Comp3aa = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous ne pas sacrifier de PV et infliger " + degatsInfliges + " dégâts?\nVous gagnerez un bouclier de " + (degatsInfliges / 2) + ".", "Oui", "Non");
+
+                        switch (Comp3aa)
+                        {
+                            case true:
+
+                                LabelInfo.Text = "Vous ne sacrifiez pas de PV et infligez " + degatsInfliges + " dégâts.\nVous gagnez un bouclier de " + (degatsInfliges / 2) + ".";
+                                Bouclier = Bouclier + degatsInfliges / 2;
+
+                                if (CdComp2 > 0 && CdComp2 <= 4)
+                                {
+                                    CdComp2 -= 1;
+                                }
+
+                                break;
+
+                            case false:
+
+                                break;
+                        }
                     }
 
                     else
                     {
-                        LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV et infligez " + degatsInfliges + " dégâts.";
-                        PVactuels = PVactuels - PVsacrifiés;
+
+
+                        bool Comp3ab = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous sacrifier " + PVsacrifiés + "PV et infliger " + degatsInfliges + " dégâts?", "Oui", "Non");
+
+                        switch (Comp3ab)
+                        {
+                            case true:
+
+                                LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV et infligez " + degatsInfliges + " dégâts.";
+                                PVactuels = PVactuels - PVsacrifiés;
+
+                                if (CdComp2 > 0 && CdComp2 <= 4)
+                                {
+                                    CdComp2 -= 1;
+                                }
+
+                                break;
+
+                            case false:
+
+                                break;
+                        }
+
                     }
+
                     break;
 
                 case "Echec critique":
 
                     PVsacrifiés = 20 * PVactuels / 100;
-                    degatsArmes = 1 + Force + Agilité;
-                    degatsInfliges = degatsArmes + degatsArmes / 2;
-                    LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV mais la compétence échoue et vous n'infligez pas de dégâts.";
-                    PVactuels = PVactuels - PVsacrifiés;
+                    degatsInfliges = defDegatsTotauxArmes() + defDegatsTotauxArmes() / 2;
 
+                    bool Comp3b = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous sacrifier " + PVsacrifiés + "PV mais la compétence échouera et vous n'infligerez pas de dégâts?", "Oui", "Non");
+
+                    switch (Comp3b)
+                    {
+                        case true:
+
+                            LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV mais la compétence échoue et vous n'infligez pas de dégâts.";
+                            PVactuels = PVactuels - PVsacrifiés;
+
+                            if (CdComp2 > 0 && CdComp2 <= 4)
+                            {
+                                CdComp2 -= 1;
+                            }
+
+                            break;
+
+                        case false:
+
+                            break;
+                    }
 
                     break;
             }
             affichageInitial();
         }
+
+        private async void ButtonFinTour_Click(object sender, EventArgs e)
+        {
+            bool FinTour = await DisplayAlert("Fin de tour", "Voulez vous vraiment mettre fin à votre tour ?", "Oui", "Non");
+
+            switch (FinTour)
+            {
+                case true :
+
+                    if (CdComp1 > 0)
+                    {
+                        CdComp1 -= 1;
+                    }
+
+                    if (CdComp2 > 0)
+                    {
+                        CdComp2 -= 1;
+                    }
+                    affichageInitial();
+                    LabelInfo.Text = "Fin de tour";
+
+                    break;
+
+                case false :
+
+                    break;
+            }
+
+
+        }
+
     }
 }
 
