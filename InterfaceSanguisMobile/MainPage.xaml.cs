@@ -199,40 +199,84 @@ namespace InterfaceSanguisMobile
         {
             degatsBaseArmes = defDegatsBaseArmes();
             int varForce;
-            int varAgilite;
-
             if (SwitchForce.IsToggled == true)
             {
                 string ArmeForce = EntryArmeForce.Text;
                 int ArmeForceNum;
                 if (int.TryParse(ArmeForce, out ArmeForceNum) == false)
                 {
-                    EntryArmeForce.Text = "E";
+                    EntryArmeForce.Text = "1";
+                    varForce = Force;
                 }
-                varForce = Force / ArmeForceNum ;
+
+                if (ArmeForceNum == 0)
+                {
+                    EntryArmeForce.Text = "1";
+                    varForce = Force;
+                }
+                else
+                {
+                    varForce = Force / ArmeForceNum;
+                }
             }
             else
             {
                 varForce = 0;
             }
+
+            int varAgilite;
             if (SwitchAgilite.IsToggled == true)
             {
                 string ArmeAgilite = EntryArmeAgilite.Text;
                 int ArmeAgiliteNum;
                 if (int.TryParse(ArmeAgilite, out ArmeAgiliteNum) == false)
                 {
-                    EntryArmeAgilite.Text = "E";
+                    EntryArmeAgilite.Text = "1";
+                    varAgilite = Agilité;
                 }
 
-
-                varAgilite = Agilité / ArmeAgiliteNum;
+                if (ArmeAgiliteNum == 0)
+                {
+                    EntryArmeAgilite.Text = "1";
+                    varAgilite = Force;
+                }
+                else
+                {
+                    varAgilite = Agilité / ArmeAgiliteNum;
+                }
             }
             else
             {
                 varAgilite = 0;
             }
 
-            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite; 
+            int varIntelligence;
+            if (SwitchIntelligence.IsToggled == true)
+            {
+                string ArmeIntelligence = EntryArmeIntelligence.Text;
+                int ArmeIntelligenceNum;
+                if (int.TryParse(ArmeIntelligence, out ArmeIntelligenceNum) == false)
+                {
+                    EntryArmeIntelligence.Text = "1";
+                    varIntelligence = Intelligence;
+                }
+
+                if (ArmeIntelligenceNum == 0)
+                {
+                    EntryArmeIntelligence.Text = "1";
+                    varIntelligence = Intelligence;
+                }
+                else
+                {
+                    varIntelligence = Intelligence / ArmeIntelligenceNum;
+                }
+            }
+            else
+            {
+                varIntelligence = 0;
+            }
+
+            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite + varIntelligence; 
 
             return degatsTotauxArmes;
         }
@@ -375,6 +419,36 @@ namespace InterfaceSanguisMobile
 
 
 
+        private async void ButtonFinTour_Click(object sender, EventArgs e)
+        {
+            bool FinTour = await DisplayAlert("Fin de tour", "Voulez vous vraiment mettre fin à votre tour ?", "Oui", "Non");
+
+            switch (FinTour)
+            {
+                case true:
+
+                    if (CdComp1 > 0)
+                    {
+                        CdComp1 -= 1;
+                    }
+
+                    if (CdComp2 > 0)
+                    {
+                        CdComp2 -= 1;
+                    }
+                    affichageInitial();
+                    LabelInfo.Text = "Fin de tour";
+
+                    break;
+
+                case false:
+
+                    break;
+            }
+
+
+        }
+
         private async void ButtonAutoAttack_Click(object sender, EventArgs e)
         {
             degatsInfliges = defDegatsTotauxArmes();
@@ -428,82 +502,22 @@ namespace InterfaceSanguisMobile
 
         private async void ButtonComp1_Click(object sender, EventArgs e)
         {
-            PopUpDegatsReelsComp1.IsVisible = true;
+            degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
 
-            var actionSheet = await DisplayActionSheet("","Annuler",null,"Echec critique","Coup normal", "Coup critique");
+            bool comp1 = await DisplayAlert("Cela ne t'est pas si vital", "Echec critique :\n- Dégâts = " + degatsInfliges + "\n- Soin = 0\n- Cible terrifiée\n\nCoup normal :\n- Dégâts = " + degatsInfliges + "\n- Soin = " + degatsInfliges + "\n- Cible terrifiée\n\nCoup critique :\n- Dégâts = " + degatsInfliges + "\n- Soin = " + degatsInfliges + "\n- PVmax = +" + degatsInfliges + "\n- Cible terrifiée", "Ok", "Annuler");
 
-            switch (actionSheet)
+            switch (comp1)
             {
-                case "Annuler":
+                case true:
+
+                    PopUpDegatsReelsComp1.IsVisible = true;
 
                     break;
 
-                case "Coup normal":
-
-                    degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-
-
-                    bool Comp1a = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts et vous soigner de " + degatsInfliges + "PV?\nLa cible sera terrifiée.", "Oui", "Non");
-
-                    switch (Comp1a)
-                    {
-                        case true:
-
-
-
-                            break;
-
-                        case false:
-
-                            break;
-                    }
+                case false:
 
                     break;
-
-                case "Echec critique":
-
-                    degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-
-
-                    bool Comp1b = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts sans vous soigner?\nLa cible sera terrifiée.", "Oui", "Non");
-
-                    switch (Comp1b)
-                    {
-                        case true:
-
-                            break;
-
-                        case false:
-
-                            break;
-                    }
-
-                    break;
-
-                case "Coup critique":
-
-                    degatsInfliges = 3 + 3 * (Force / 2) + 3 * (Agilité / 2);
-
-                    bool Comp1c = await DisplayAlert("Cela ne t'est pas si vital", "Voulez-vous infliger " + degatsInfliges + " dégâts et vous soigner de " + degatsInfliges + "PV?\nVos PVmax augmenteront de " + degatsInfliges + ".\nLa cible sera terrifiée.", "Oui", "Non");
-
-                    switch (Comp1c)
-                    {
-                        case true:
-
-
-
-                            break;
-
-                        case false:
-
-                            break;
-                    }
-
-                    break;
-
             }
-            affichageInitial();
-
         }
         private void ButtonValiderDegatsComp1_Click(object sender, EventArgs e)
         {
@@ -514,7 +528,6 @@ namespace InterfaceSanguisMobile
             {
                 EntryDegatsReelsComp1.Text = "E";
             }
-
 
 
             if (RadioButtonComp1EchecCritique.IsChecked == true)
@@ -545,6 +558,9 @@ namespace InterfaceSanguisMobile
             {
 
                 LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + DegatsReelsComp1Num + "PV.\nVos PVmax augmentent de " + DegatsReelsComp1Num + ".\nLa cible est terrifiée.";
+
+                PVmax += DegatsReelsComp1Num;
+
                 if ((PVactuels + DegatsReelsComp1Num) < PVmax)
                 {
                     PVactuels = PVactuels + DegatsReelsComp1Num;
@@ -567,16 +583,13 @@ namespace InterfaceSanguisMobile
         private async void ButtonComp2_Click(object sender, EventArgs e)
         {
             degatsInfliges = 1 + Force / 3 + Agilité / 3;
-            bool Comp2 = await DisplayAlert("Pluie de sang", "Voulez-vous infliger " + degatsInfliges + " dégâts à tous les ennemis et vous soigner de " + (PVmax - PVactuels) + "PV?", "Oui", "Non");
+            bool Comp2 = await DisplayAlert("Pluie de sang", "Voulez-vous infliger jusqu'à " + degatsInfliges + " dégâts à tous les ennemis et vous soigner de " + (PVmax - PVactuels) + "PV?", "Oui", "Non");
 
             switch (Comp2)
             {
                 case true:
 
-                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à tous les ennemis et vous soignez de " + (PVmax - PVactuels) + "PV."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
-                    PVactuels = PVmax;
-                    CdComp2 = 6;
-                    affichageInitial();
+                    PopUpDegatsReelsComp2.IsVisible = true;
 
                     break;
 
@@ -584,6 +597,28 @@ namespace InterfaceSanguisMobile
 
                     break;
             }
+        }
+        private void ButtonValiderDegatsComp2_Click(object sender, EventArgs e)
+        {
+
+            string DegatsReelsComp2 = EntryDegatsReelsComp2.Text;
+            int DegatsReelsComp2Num;
+
+            if (int.TryParse(DegatsReelsComp2, out DegatsReelsComp2Num) == false)
+            {
+                EntryDegatsReelsComp2.Text = "E";
+            }
+
+
+            LabelInfo.Text = "Vous infligez " + DegatsReelsComp2Num + " dégâts à tous les ennemis et vous soignez de " + (PVmax - PVactuels) + "PV."; // PV soignés = basés  sur dégats théoriques ou effectifs ?
+            PVactuels = PVmax;
+            CdComp2 = 6;
+            affichageInitial();
+            PopUpDegatsReelsComp2.IsVisible = false;
+        }
+        private void ButtonAnnulerDegatsComp2_Click(object sender, EventArgs e)
+        {
+            PopUpDegatsReelsComp2.IsVisible = false;
         }
 
         private async void ButtonComp3_Click(object sender, EventArgs e)
@@ -686,35 +721,6 @@ namespace InterfaceSanguisMobile
             affichageInitial();
         }
 
-        private async void ButtonFinTour_Click(object sender, EventArgs e)
-        {
-            bool FinTour = await DisplayAlert("Fin de tour", "Voulez vous vraiment mettre fin à votre tour ?", "Oui", "Non");
-
-            switch (FinTour)
-            {
-                case true :
-
-                    if (CdComp1 > 0)
-                    {
-                        CdComp1 -= 1;
-                    }
-
-                    if (CdComp2 > 0)
-                    {
-                        CdComp2 -= 1;
-                    }
-                    affichageInitial();
-                    LabelInfo.Text = "Fin de tour";
-
-                    break;
-
-                case false :
-
-                    break;
-            }
-
-
-        }
 
     }
 }

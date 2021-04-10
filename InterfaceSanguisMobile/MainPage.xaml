@@ -74,12 +74,18 @@
             <Grid>
                 <Label Text="Dégats de base" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                 <Entry x:Name="EntryDegatsBaseArmes" Text="12" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1"/>
-                <Label Text="Agilité                /" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Entry x:Name="EntryArmeAgilite" HorizontalTextAlignment="Center" Text="1" Grid.Row="1" Grid.Column="1"/>
-                <Switch x:Name="SwitchAgilite" Grid.Row="1" Grid.Column="2" IsToggled="True"/>
-                <Label Text="Force                /" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Entry x:Name="EntryArmeForce" HorizontalTextAlignment="Center" Text="1" Grid.Row="2" Grid.Column="1"/>
-                <Switch x:Name="SwitchForce" Grid.Row="2" Grid.Column="2" IsToggled="True"/>
+                <Label Text="Agilité" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeAgilite" HorizontalTextAlignment="Center" Text="1" Grid.Row="1" Grid.Column="2"/>
+                <Switch x:Name="SwitchAgilite" Grid.Row="1" Grid.Column="3" IsToggled="True"/>
+                <Label Text="Force" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeForce" HorizontalTextAlignment="Center" Text="1" Grid.Row="2" Grid.Column="2"/>
+                <Switch x:Name="SwitchForce" Grid.Row="2" Grid.Column="3" IsToggled="True"/>
+                <Label Text="Intelligence" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeIntelligence" HorizontalTextAlignment="Center" Text="1" Grid.Row="3" Grid.Column="2"/>
+                <Switch x:Name="SwitchIntelligence" Grid.Row="3" Grid.Column="3"/>
             </Grid>
 
         </StackLayout>
@@ -91,32 +97,54 @@
             <Entry x:Name="EntryDegatsRecus" Keyboard="Numeric" HorizontalTextAlignment="Center" Margin="150,0"/>
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="Aquamarine" IsVisible="false">
-            <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsAutoAttack" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+        <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsAutoAttack" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
             <Button x:Name="ButtonValiderDegatsAutoAttack" Text="Valider" Clicked="ButtonValiderDegatsAutoAttack_Click"/>
             <Button x:Name="ButtonAnnulerDegatsAutoAttack" Text="Annuler" Clicked="ButtonAnnulerDegatsAutoAttack_Click"/>
             <Label/>
             <Label/>
             <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsComp1" VerticalOptions="End" Margin="0,92" BackgroundColor="Aquamarine" IsVisible="false">
-            <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp1" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+        <StackLayout x:Name="PopUpDegatsReelsComp1" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
+            <Label FontSize="5"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp1" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
             <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
             <Button x:Name="ButtonAnnulerDegatsComp1" Text="Annuler" Clicked="ButtonAnnulerDegatsComp1_Click"/>
-            <RadioButton x:Name="RadioButtonComp1EchecCritique" Content="Echec critique"/>
-            <RadioButton x:Name="RadioButtonComp1CoupNormal" Content="Coup normal"/>
-            <RadioButton x:Name="RadioButtonComp1CoupCritique" Content="Coup critique"/>
+            <RadioButton x:Name="RadioButtonComp1EchecCritique"  TextColor="White" Content="Echec critique"/>
+            <RadioButton x:Name="RadioButtonComp1CoupNormal"  TextColor="White" Content="Coup normal" IsChecked="True"/>
+            <RadioButton x:Name="RadioButtonComp1CoupCritique" TextColor="White" Content="Coup critique"/>
+            <Label/>
+            <Label/>
             <Label/>
         </StackLayout>
         
-        <StackLayout x:Name="PopUpDegatsReelsComp2" VerticalOptions="End" Margin="0,92" BackgroundColor="Aquamarine" IsVisible="false">
-            <Label x:Name="LabelDegatsReelsComp2" Text="Dégats réellements infligés par la compétence 2" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp2" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsComp2" Text="Valider"/>
-            <Button x:Name="ButtonAnnulerDegatsComp2" Text="Annuler"/>
+        <StackLayout x:Name="PopUpDegatsReelsComp2" VerticalOptions="End" Margin="0,0" BackgroundColor="red" IsVisible="false">
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp2" Text="Dégats réellements infligés par la compétence 2" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp2" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsComp2" Text="Valider" Clicked="ButtonValiderDegatsComp2_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsComp2" Text="Annuler" Clicked="ButtonAnnulerDegatsComp2_Click"/>
+            <Label/>
+            <Label/>
+            <Label/>
             <Label/>
             <Label/>
             <Label/>
