@@ -101,12 +101,12 @@
             <Label/>
             <Label/>
             <Label/>
-            <Label/>
-            <Label/>
             <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" TextColor="White" FontSize="16" FontAttributes="Bold"/>
             <Entry x:Name="EntryDegatsReelsAutoAttack" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
             <Button x:Name="ButtonValiderDegatsAutoAttack" Text="Valider" Clicked="ButtonValiderDegatsAutoAttack_Click"/>
             <Button x:Name="ButtonAnnulerDegatsAutoAttack" Text="Annuler" Clicked="ButtonAnnulerDegatsAutoAttack_Click"/>
+            <Label/>
+            <Label/>
             <Label/>
             <Label/>
             <Label/>
@@ -119,7 +119,6 @@
             <Label FontSize="5"/>
             <Label/>
             <Label/>
-            <Label/>
             <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" TextColor="White" FontSize="16" FontAttributes="Bold"/>
             <Entry x:Name="EntryDegatsReelsComp1" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
             <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
@@ -130,11 +129,10 @@
             <Label/>
             <Label/>
             <Label/>
+            <Label/>
         </StackLayout>
         
         <StackLayout x:Name="PopUpDegatsReelsComp2" VerticalOptions="End" Margin="0,0" BackgroundColor="red" IsVisible="false">
-            <Label/>
-            <Label/>
             <Label/>
             <Label/>
             <Label/>
@@ -148,13 +146,22 @@
             <Label/>
             <Label/>
             <Label/>
+            <Label/>
+            <Label/>
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsComp3" VerticalOptions="End" Margin="0,92" BackgroundColor="Aquamarine" IsVisible="false">
-            <Label x:Name="LabelDegatsReelsComp3" Text="Dégats réellements infligés par la compétence 3" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp3" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsComp3" Text="Valider"/>
-            <Button x:Name="ButtonAnnulerDegatsComp3" Text="Annuler"/>
+        <StackLayout x:Name="PopUpDegatsReelsComp3" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp3" Text="Dégats réellements infligés par la compétence 3" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp3" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsComp3" Text="Valider" Clicked="ButtonValiderDegatsComp3_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsComp3" Text="Annuler" Clicked="ButtonAnnulerDegatsComp3_Click"/>
+            <RadioButton x:Name="RadioButtonComp3EchecCritique"  TextColor="White" Content="Echec critique"/>
+            <RadioButton x:Name="RadioButtonComp3CoupNormal"  TextColor="White" Content="Coup normal" IsChecked="True"/>
+            <Label/>
+            <Label/>
             <Label/>
             <Label/>
             <Label/>

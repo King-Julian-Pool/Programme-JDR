@@ -29,6 +29,7 @@ namespace InterfaceSanguisMobile
         int degatsInfliges;
         int degatsBaseArmes = 12;
         int degatsTotauxArmes;
+        int PVsacrifiés;
         int CdComp1;
         int CdComp2;
 
@@ -540,10 +541,10 @@ namespace InterfaceSanguisMobile
             else if (RadioButtonComp1CoupNormal.IsChecked == true)
             {
 
-                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + DegatsReelsComp1Num + "PV.\nLa cible est terrifiée.";
+                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée.";
                 if ((PVactuels + DegatsReelsComp1Num) < PVmax)
                 {
-                    PVactuels = PVactuels + DegatsReelsComp1Num;
+                    PVactuels = PVactuels + degatsInfliges;
                 }
                 else
                 {
@@ -557,13 +558,13 @@ namespace InterfaceSanguisMobile
             else if (RadioButtonComp1CoupCritique.IsChecked == true)
             {
 
-                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + DegatsReelsComp1Num + "PV.\nVos PVmax augmentent de " + DegatsReelsComp1Num + ".\nLa cible est terrifiée.";
+                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée.";
 
                 PVmax += DegatsReelsComp1Num;
 
                 if ((PVactuels + DegatsReelsComp1Num) < PVmax)
                 {
-                    PVactuels = PVactuels + DegatsReelsComp1Num;
+                    PVactuels = PVactuels + degatsInfliges;
                 }
                 else
                 {
@@ -623,105 +624,88 @@ namespace InterfaceSanguisMobile
 
         private async void ButtonComp3_Click(object sender, EventArgs e)
         {
-            var actionSheet = await DisplayActionSheet("","Annuler",null,"Echec critique","Coup normal");
-            int PVsacrifiés;
+            PVsacrifiés = 20 * PVactuels / 100;
+            degatsInfliges = defDegatsTotauxArmes() + defDegatsTotauxArmes() / 2;
 
-            switch (actionSheet)
+
+            bool comp3 = await DisplayAlert("Sous l'armure il y a une victime", "Echec critique :\n- PVsacrifiés = " + PVsacrifiés + "\n- Dégâts = 0\n\nCoup normal :\n- PVsacrifiés = " + PVsacrifiés + "\n- Dégâts = " + degatsInfliges + "\n\nSi PV< 20% des PV max :\n- PV soignés = PV sacrifiés\n- Bouclier = +" + (degatsInfliges / 2), "Ok", "Annuler");
+
+            switch (comp3)
             {
-                case "Annuler":
+                case true:
+
+                    PopUpDegatsReelsComp3.IsVisible = true;
 
                     break;
 
-                case "Coup normal":
-
-                    PVsacrifiés = 20 * PVactuels / 100;
-                    degatsInfliges = defDegatsTotauxArmes() + defDegatsTotauxArmes() /2;
-
-                    if (PVactuels <= PVmax / 4)
-                    {
-                        bool Comp3aa = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous ne pas sacrifier de PV et infliger " + degatsInfliges + " dégâts?\nVous gagnerez un bouclier de " + (degatsInfliges / 2) + ".", "Oui", "Non");
-
-                        switch (Comp3aa)
-                        {
-                            case true:
-
-                                LabelInfo.Text = "Vous ne sacrifiez pas de PV et infligez " + degatsInfliges + " dégâts.\nVous gagnez un bouclier de " + (degatsInfliges / 2) + ".";
-                                Bouclier = Bouclier + degatsInfliges / 2;
-
-                                if (CdComp2 > 0 && CdComp2 <= 4)
-                                {
-                                    CdComp2 -= 1;
-                                }
-
-                                break;
-
-                            case false:
-
-                                break;
-                        }
-                    }
-
-                    else
-                    {
-
-
-                        bool Comp3ab = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous sacrifier " + PVsacrifiés + "PV et infliger " + degatsInfliges + " dégâts?", "Oui", "Non");
-
-                        switch (Comp3ab)
-                        {
-                            case true:
-
-                                LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV et infligez " + degatsInfliges + " dégâts.";
-                                PVactuels = PVactuels - PVsacrifiés;
-
-                                if (CdComp2 > 0 && CdComp2 <= 4)
-                                {
-                                    CdComp2 -= 1;
-                                }
-
-                                break;
-
-                            case false:
-
-                                break;
-                        }
-
-                    }
-
-                    break;
-
-                case "Echec critique":
-
-                    PVsacrifiés = 20 * PVactuels / 100;
-                    degatsInfliges = defDegatsTotauxArmes() + defDegatsTotauxArmes() / 2;
-
-                    bool Comp3b = await DisplayAlert("Sous l'armure il y a une victime", "Voulez-vous sacrifier " + PVsacrifiés + "PV mais la compétence échouera et vous n'infligerez pas de dégâts?", "Oui", "Non");
-
-                    switch (Comp3b)
-                    {
-                        case true:
-
-                            LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV mais la compétence échoue et vous n'infligez pas de dégâts.";
-                            PVactuels = PVactuels - PVsacrifiés;
-
-                            if (CdComp2 > 0 && CdComp2 <= 4)
-                            {
-                                CdComp2 -= 1;
-                            }
-
-                            break;
-
-                        case false:
-
-                            break;
-                    }
+                case false:
 
                     break;
             }
-            affichageInitial();
+
         }
+        private void ButtonValiderDegatsComp3_Click(object sender, EventArgs e)
+        {
+
+            string DegatsReelsComp3 = EntryDegatsReelsComp3.Text;
+            int DegatsReelsComp3Num;
+
+            if (int.TryParse(DegatsReelsComp3, out DegatsReelsComp3Num) == false)
+            {
+                EntryDegatsReelsComp3.Text = "E";
+            }
 
 
+
+            if (RadioButtonComp3EchecCritique.IsChecked == true)
+            {
+                LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV mais la compétence échoue et vous n'infligez pas de dégâts.";
+                PVactuels = PVactuels - PVsacrifiés;
+
+                if (CdComp2 > 0 && CdComp2 <= 4)
+                {
+                    CdComp2 -= 1;
+                }
+            }
+
+            else if (RadioButtonComp3CoupNormal.IsChecked == true)
+            {
+
+                if (PVactuels <= PVmax / 4)
+                {
+                    LabelInfo.Text = "Vous ne sacrifiez pas de PV et infligez " + DegatsReelsComp3Num + " dégâts.\nVous gagnez un bouclier de " + (DegatsReelsComp3Num / 2) + ".";
+                    Bouclier = Bouclier + DegatsReelsComp3Num / 2;
+
+                    if (CdComp2 > 0 && CdComp2 <= 4)
+                    {
+                        CdComp2 -= 1;
+                    }
+                }
+
+                else
+                {
+
+                    LabelInfo.Text = "Vous sacrifiez " + PVsacrifiés + "PV et infligez " + DegatsReelsComp3Num + " dégâts.";
+                    PVactuels = PVactuels - PVsacrifiés;
+
+                    if (CdComp2 > 0 && CdComp2 <= 4)
+                    {
+                        CdComp2 -= 1;
+                    }
+
+                }
+
+
+            }
+
+
+            affichageInitial();
+            PopUpDegatsReelsComp3.IsVisible = false;
+        }
+        private void ButtonAnnulerDegatsComp3_Click(object sender, EventArgs e)
+        {
+            PopUpDegatsReelsComp3.IsVisible = false;
+        }
     }
 }
 

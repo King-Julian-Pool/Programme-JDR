@@ -239,6 +239,12 @@ namespace InterfaceSanguisMobile {
         private global::Xamarin.Forms.Button ButtonAnnulerDegatsComp3;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.RadioButton RadioButtonComp3EchecCritique;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.RadioButton RadioButtonComp3CoupNormal;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MainPage));
             EntryPerso1 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "EntryPerso1");
@@ -315,6 +321,8 @@ namespace InterfaceSanguisMobile {
             EntryDegatsReelsComp3 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Entry>(this, "EntryDegatsReelsComp3");
             ButtonValiderDegatsComp3 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "ButtonValiderDegatsComp3");
             ButtonAnnulerDegatsComp3 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "ButtonAnnulerDegatsComp3");
+            RadioButtonComp3EchecCritique = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RadioButton>(this, "RadioButtonComp3EchecCritique");
+            RadioButtonComp3CoupNormal = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RadioButton>(this, "RadioButtonComp3CoupNormal");
         }
     }
 }
