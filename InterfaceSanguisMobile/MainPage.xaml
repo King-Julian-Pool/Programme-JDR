@@ -7,7 +7,7 @@
         <StackLayout>
             <Frame BackgroundColor="Red" Padding="2" CornerRadius="0">
                 <Grid>
-                    <Entry x:Name="EntryPerso1" Text="Nom" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="0"/>
+                    <Entry x:Name="EntryPerso1" Text="Sakki" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="0"/>
                     <Label x:Name="EntryPerso2" Text="Sanguis" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" FontSize="24" Grid.Column="1"/>
                     <Entry x:Name="EntryPerso3" Text="Niveau" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="2"/>
                 </Grid>
@@ -51,7 +51,7 @@
             </Grid>
 
         </StackLayout>
-        <StackLayout x:Name="PopUpModifStats" VerticalOptions="End" Margin="0,25" BackgroundColor="Red" IsVisible="false">
+        <StackLayout x:Name="PopUpModifStats" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
             <Grid>
                 <Button x:Name="ButtonPVactuels" Clicked="ButtonPVactuels_Click" Text="PV actuels" Grid.Row="0" Grid.Column="0" FontSize="12"/>
                 <Button x:Name="ButtonPVmax" Clicked="ButtonPVmax_Click" Text="PV max" Grid.Row="0" Grid.Column="1" FontSize="12"/>
@@ -86,15 +86,24 @@
                 <Label Text="/" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1"/>
                 <Entry x:Name="EntryArmeIntelligence" HorizontalTextAlignment="Center" Text="1" Grid.Row="3" Grid.Column="2"/>
                 <Switch x:Name="SwitchIntelligence" Grid.Row="3" Grid.Column="3"/>
+                <Label Text="PVmax" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                <Entry x:Name="EntryArmePVmax" HorizontalTextAlignment="Center" Text="1" Grid.Row="4" Grid.Column="2"/>
+                <Switch x:Name="SwitchPVmax" Grid.Row="4" Grid.Column="3"/>
             </Grid>
 
         </StackLayout>
-        
-        <StackLayout x:Name="PopUpDegatsSoins" VerticalOptions="End" Margin="0,52" BackgroundColor="Red" IsVisible="false">
+
+        <StackLayout x:Name="PopUpDegatsSoins" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
+            <Label FontSize="5"/>
             <Button x:Name="SubirDegats" Clicked="ButtonSubirDegats_Click" Text="Subir des dégâts"/>
             <Button x:Name="ButtonHeal" Clicked="ButtonHeal_Click" Text="Heal"/>
             <Button x:Name="ButtonGainBouclier" Clicked="ButtonGainBouclier_Click" Text="Gain de bouclier"/>
             <Entry x:Name="EntryDegatsRecus" Keyboard="Numeric" HorizontalTextAlignment="Center" Margin="150,0"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
         </StackLayout>
 
         <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="Red" IsVisible="false">
@@ -131,7 +140,7 @@
             <Label/>
             <Label/>
         </StackLayout>
-        
+
         <StackLayout x:Name="PopUpDegatsReelsComp2" VerticalOptions="End" Margin="0,0" BackgroundColor="red" IsVisible="false">
             <Label/>
             <Label/>

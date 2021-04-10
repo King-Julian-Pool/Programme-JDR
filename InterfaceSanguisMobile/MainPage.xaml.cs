@@ -109,10 +109,10 @@ namespace InterfaceSanguisMobile
             }
             else
             {
-                LabelInfo.Text = "Vous vous soignez de " + PVsoignesNum + " PV";
+                LabelInfo.Text = "Vous vous soignez de " + PVsoignesNum + " PV\n";
             }
 
-            if ((PVactuels +PVsoignesNum) < PVmax)
+            if ((PVactuels + PVsoignesNum) < PVmax)
             {
                 PVactuels = PVactuels + PVsoignesNum;
             }
@@ -150,7 +150,7 @@ namespace InterfaceSanguisMobile
             }
             else
             {
-                LabelInfo.Text = "Vous subissez " + degatsRecusNum + " dégâts et vos PVmax sont diminués de " + degatsRecusNum/2;
+                LabelInfo.Text = "Vous subissez " + degatsRecusNum + " dégâts et vos PVmax sont diminués de " + degatsRecusNum / 2;
             }
 
             if (Bouclier == 0)
@@ -277,7 +277,33 @@ namespace InterfaceSanguisMobile
                 varIntelligence = 0;
             }
 
-            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite + varIntelligence; 
+            int varPVmax;
+            if (SwitchPVmax.IsToggled == true)
+            {
+                string ArmePVmax = EntryArmePVmax.Text;
+                int ArmePVmaxNum;
+                if (int.TryParse(ArmePVmax, out ArmePVmaxNum) == false)
+                {
+                    EntryArmePVmax.Text = "1";
+                    varPVmax = PVmax;
+                }
+
+                if (ArmePVmaxNum == 0)
+                {
+                    EntryArmePVmax.Text = "1";
+                    varPVmax = PVmax;
+                }
+                else
+                {
+                    varPVmax = PVmax / ArmePVmaxNum;
+                }
+            }
+            else
+            {
+                varPVmax = 0;
+            }
+
+            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite + varIntelligence + varPVmax;
 
             return degatsTotauxArmes;
         }
@@ -308,7 +334,7 @@ namespace InterfaceSanguisMobile
         private void ButtonArmure_Click(object sender, EventArgs e)
         {
             Armure = modifStats();
-            LabelInfo.Text = "Votre armure passe à " + modifStats();
+            LabelInfo.Text = "Votre armure passe à " + modifStats() + "\n";
             affichageInitial();
         }
 
@@ -322,42 +348,42 @@ namespace InterfaceSanguisMobile
         private void ButtonForce_Click(object sender, EventArgs e)
         {
             Force = modifStats();
-            LabelInfo.Text = "Votre force passe à " + modifStats();
+            LabelInfo.Text = "Votre force passe à " + modifStats() + "\n";
             affichageInitial();
         }
 
         private void ButtonAgilite_Click(object sender, EventArgs e)
         {
             Agilité = modifStats();
-            LabelInfo.Text = "Votre agilité passe à " + modifStats();
+            LabelInfo.Text = "Votre agilité passe à " + modifStats() + "\n";
             affichageInitial();
         }
 
         private void ButtonInitiative_Click(object sender, EventArgs e)
         {
             Initiative = modifStats();
-            LabelInfo.Text = "Votre initiative passe à " + modifStats();
+            LabelInfo.Text = "Votre initiative passe à " + modifStats() + "\n";
             affichageInitial();
         }
 
         private void ButtonPm_Click(object sender, EventArgs e)
         {
             Pm = modifStats();
-            LabelInfo.Text = "Vos PM passent à " + modifStats();
+            LabelInfo.Text = "Vos PM passent à " + modifStats() + "\n";
             affichageInitial();
         }
 
         private void ButtonPVactuels_Click(object sender, EventArgs e)
         {
             PVactuels = modifStats();
-            LabelInfo.Text = "Vos PV actuels passent à " + modifStats();
+            LabelInfo.Text = "Vos PV actuels passent à " + modifStats() + "\n";
             affichageInitial();
         }
 
         private void ButtonPVmax_Click(object sender, EventArgs e)
         {
             PVmax = modifStats();
-            LabelInfo.Text = "Vos PV maximum passent à " + modifStats();
+            LabelInfo.Text = "Vos PV maximum passent à " + modifStats() + "\n";
             affichageInitial();
         }
 
@@ -371,7 +397,7 @@ namespace InterfaceSanguisMobile
         private void ButtonIntelligence_Click(object sender, EventArgs e)
         {
             Intelligence = modifStats();
-            LabelInfo.Text = "Votre intelligence passe à " + modifStats();
+            LabelInfo.Text = "Votre intelligence passe à " + modifStats() + "\n";
             affichageInitial();
         }
 
@@ -438,7 +464,7 @@ namespace InterfaceSanguisMobile
                         CdComp2 -= 1;
                     }
                     affichageInitial();
-                    LabelInfo.Text = "Fin de tour";
+                    LabelInfo.Text = "Fin de tour\n";
 
                     break;
 
@@ -540,34 +566,32 @@ namespace InterfaceSanguisMobile
 
             else if (RadioButtonComp1CoupNormal.IsChecked == true)
             {
-
-                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée.";
-                if ((PVactuels + DegatsReelsComp1Num) < PVmax)
+                if (PVactuels + degatsInfliges < PVmax)
                 {
                     PVactuels = PVactuels + degatsInfliges;
+                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nLa cible est terrifiée.";
                 }
                 else
                 {
+                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + (PVmax - PVactuels) + "PV.\nLa cible est terrifiée.";
                     PVactuels = PVmax;
                 }
 
                 CdComp1 = 2;
-
             }
 
             else if (RadioButtonComp1CoupCritique.IsChecked == true)
             {
+                PVmax += degatsInfliges;
 
-                LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée.";
-
-                PVmax += DegatsReelsComp1Num;
-
-                if ((PVactuels + DegatsReelsComp1Num) < PVmax)
+                if (PVactuels + degatsInfliges < PVmax)
                 {
                     PVactuels = PVactuels + degatsInfliges;
+                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + degatsInfliges + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée.";
                 }
                 else
                 {
+                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts et vous soignez de " + (PVmax - PVactuels) + "PV.\nVos PVmax augmentent de " + degatsInfliges + ".\nLa cible est terrifiée.";
                     PVactuels = PVmax;
                 }
 
