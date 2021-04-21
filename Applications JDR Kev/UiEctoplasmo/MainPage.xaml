@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UiEctoplasmo.MainPage" Appearing="Page_Appearing">
+
+    <Grid>
+        <StackLayout>
+            <Frame BackgroundColor="#ABDDE0" Padding="2" CornerRadius="0">
+                <Grid>
+                    <Entry x:Name="EntryPerso1" Text="Livid" HorizontalTextAlignment="Center" TextColor="White" FontSize="21" IsSpellCheckEnabled="False" Grid.Column="0"/>
+                    <Label x:Name="EntryPerso2" Text="Ectoplasmo" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" FontSize="21" Grid.Column="1"/>
+                    <Entry x:Name="EntryPerso3" Text="Niveau" HorizontalTextAlignment="Center" TextColor="White" FontSize="21" IsSpellCheckEnabled="False" Grid.Column="2"/>
+                </Grid>
+            </Frame>
+            <Grid>
+                <StackLayout Grid.Column="0">
+                    <Label x:Name="LabelPv" Text="PVa/PVmax : 0/0" FontSize="16" Padding="10,10,30,0"/>
+                    <ProgressBar x:Name="ProgressBarPv" Margin="10,0,10,0"/>
+                    <Label x:Name="LabelBouclier" Text="Bouclier : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelArmure" Text="Armure : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelResistMagique" Text="Résist. Magique : 0" FontSize="16" Padding="10,0,30,5"/>
+                    <Button x:Name="ButtonModifStats" Clicked="ButtonModifStats_Click" Text="Modifier stats"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label x:Name="LabelIntelligence" Text="Intelligence : 0" FontSize="16" Padding="10,10,30,0"/>
+                    <Label x:Name="LabelForce" Text="Force : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelAgilite" Text="Agilité : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelInitiative" Text="Initiative : 0" FontSize="16" Padding="10,0,30,0"/>
+                    <Label x:Name="LabelPm" Text="PM : 0" FontSize="16" Padding="10,0,30,0"/>
+
+                    <Button x:Name="ButtonDegatsSoins" Clicked="ButtonDegatsSoins_Click" Text="Dégâts/soins"/>
+                </StackLayout>
+            </Grid>
+
+            <Label x:Name="LabelInfo" FontSize="24" Margin="0,30,0,0"/>
+
+
+            <Grid x:Name="GridAction" ColumnDefinitions="70,240,60">
+                <Label x:Name="LabelActions" Text="Actions :" FontSize="16" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="ButtonDebutTour" Text="Début de tour" FontSize="10" FontAttributes="Bold" TextColor="White" BackgroundColor="#ABDDE0" BorderColor="Black" BorderWidth="2" Clicked="ButtonDebutTour_Click" Grid.Row="0" Grid.Column="1" Margin="0,0,121,0"/>
+                <Button x:Name="ButtonFinTour" Text="Passer son tour" FontSize="10" FontAttributes="Bold" TextColor="White" BackgroundColor="#ABDDE0" BorderColor="Black" BorderWidth="2" Clicked="ButtonFinTour_Click" Grid.Row="0" Grid.Column="1" Margin="121,0,0,0"/>
+                <Label Text="CD:" FontSize="16" FontAttributes="Bold" Grid.Row="0"  Grid.Column="2"/>
+                <Button x:Name="ButtonAutoAttack" Text="Auto-Attack" Clicked="ButtonAutoAttack_Click" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Button x:Name="ButtonComp1" Clicked="ButtonComp1_Click" Text="Transfert" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Label x:Name="LabelCdComp1" TextColor="White" BackgroundColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="0,0,30,0"/>
+                <Button x:Name="ButtonComp2" Clicked="ButtonComp2_Click" Text="Rejoins moi" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Label x:Name="LabelCdComp2" TextColor="White" BackgroundColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="2" Margin="0,0,30,0"/>
+                <Button x:Name="ButtonComp3" Clicked="ButtonComp3_Click" Text="Pusilli Ectoplasmi" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Label x:Name="LabelCdComp3" TextColor="White" BackgroundColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="2" Margin="0,0,30,0"/>
+                <Label x:Name="LabelPourcentages" FontAttributes="Bold" TextColor="#ABDDE0" FontSize="11" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center"/>
+                <Label Text="|" Grid.Row="5" FontAttributes="Bold" TextColor="#ABDDE0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" Margin="151,0"/>
+                <Label x:Name="LabelPusilli" FontAttributes="Bold" TextColor="#ABDDE0" FontSize="11" Grid.Row="5" Grid.Column="1" HorizontalOptions="End" VerticalTextAlignment="Center" Margin="55,0"/>
+                <Label Text="|" Grid.Row="5" FontAttributes="Bold" TextColor="#ABDDE0" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" Margin="-55,0"/>
+                <Label x:Name="LabelBeniMaudit" FontAttributes="Bold" TextColor="#ABDDE0" FontSize="11" Text="Béni" Grid.Row="5" Grid.Column="1" HorizontalOptions="End" Margin="-30,0" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </StackLayout>
+        <StackLayout x:Name="PopUpModifStats" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Grid>
+                <Button x:Name="ButtonPVactuels" Clicked="ButtonPVactuels_Click" Text="PV actuels" Grid.Row="0" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonPVmax" Clicked="ButtonPVmax_Click" Text="PV max" Grid.Row="0" Grid.Column="1" FontSize="12"/>
+
+                <Button x:Name="ButtonSalvos" Clicked="ButtonSalvos_Click" Text="Salvos" Grid.Row="1" Grid.Column="1" FontSize="6" HorizontalOptions="Start" Margin="0,0,70,0"/>
+                <Button x:Name="ButtonReserve" Clicked="ButtonReserve_Click" Text="Réserve" Grid.Row="1" Grid.Column="1" FontSize="5" HorizontalOptions="Center" Margin="35,0,35,0"/>
+                <Button x:Name="ButtonPusilli" Clicked="ButtonPusilli_Click" Text="Pusilli" Grid.Row="1" Grid.Column="1" FontSize="6" HorizontalOptions="End" Margin="70,0,0,0"/>
+
+
+
+                <Button x:Name="ButtonCdComp1" Clicked="ButtonCdComp1_Click" Text="CD1" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="Start" Margin="0,0,70,0"/>
+                <Button x:Name="ButtonCdComp2" Clicked="ButtonCdComp2_Click" Text="CD2" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="Center" Margin="35,0,35,0"/>
+                <Button x:Name="ButtonCdComp3" Clicked="ButtonCdComp3_Click" Text="CD3" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="End" Margin="70,0,0,0"/>
+                <Button x:Name="ButtonBouclier" Clicked="ButtonBouclier_Click" Text="Bouclier" Grid.Row="1" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonArmure" Clicked="ButtonArmure_Click" Text="Armure" Grid.Row="2" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonResistMagique" Clicked="ButtonResistMagique_Click" Text="Résist. Magique" Grid.Row="3" Grid.Column="0" FontSize="12"/>
+                <Button x:Name="ButtonIntelligence" Clicked="ButtonIntelligence_Click" Text="Intelligence" Grid.Row="0" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonForce" Clicked="ButtonForce_Click" Text="Force" Grid.Row="1" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonAgilite" Clicked="ButtonAgilite_Click" Text="Agilité" Grid.Row="2" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonInitiative" Clicked="ButtonInitiative_Click" Text="Initiative" Grid.Row="3" Grid.Column="2" FontSize="12"/>
+                <Button x:Name="ButtonPm" Clicked="ButtonPm_Click" Text="PM" Grid.Row="3" Grid.Column="1" FontSize="12"/>
+
+                <Label Text="La stat selectionnée prendra la valeur :" VerticalTextAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2" TextColor="White"/>
+                <Entry x:Name="EntryModifStats" Grid.Row="4" Grid.Column="2" Keyboard="Numeric" TextColor="White" HorizontalTextAlignment="Center" Margin="30,0"/>
+                <Button x:Name="ButtonArme" Clicked="ButtonArme_Click" Text="Modifier Arme" Grid.Row="5" Grid.ColumnSpan="1" FontSize="12"/>
+                <Label Text="Béni" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
+                <CheckBox x:Name="CheckBoxBeni" HorizontalOptions="End" Grid.Row="5" Grid.Column="1" CheckedChanged="CheckBoxBeni_CheckedChanged"/>
+                <Label Text="Maudit" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
+                <CheckBox x:Name="CheckBoxMaudit" HorizontalOptions="End" Grid.Row="5" Grid.Column="2" CheckedChanged="CheckBoxMaudit_CheckedChanged"/>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpModifArme" VerticalOptions="End" Margin="0,61" BackgroundColor="White" IsVisible="false">
+            <Grid>
+                <Label Text="Dégats de base" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <Entry x:Name="EntryDegatsBaseArmes" Text="15" TextColor="#ABDDE0" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+                <Label Text="Agilité" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" TextColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeAgilite" HorizontalTextAlignment="Center" Text="1" TextColor="#ABDDE0" Grid.Row="1" Grid.Column="2"/>
+                <Switch x:Name="SwitchAgilite" Grid.Row="1" Grid.Column="3"/>
+                <Label Text="Force" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" TextColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeForce" HorizontalTextAlignment="Center" Text="1" TextColor="#ABDDE0" Grid.Row="2" Grid.Column="2"/>
+                <Switch x:Name="SwitchForce" Grid.Row="2" Grid.Column="3" IsToggled="True"/>
+                <Label Text="Intelligence" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" TextColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                <Entry x:Name="EntryArmeIntelligence" HorizontalTextAlignment="Center" Text="1" TextColor="#ABDDE0" Grid.Row="3" Grid.Column="2"/>
+                <Switch x:Name="SwitchIntelligence" Grid.Row="3" Grid.Column="3" IsToggled="True"/>
+                <Label Text="PVmax" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="/" TextColor="#ABDDE0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                <Entry x:Name="EntryArmePVmax" HorizontalTextAlignment="Center" Text="1" TextColor="#ABDDE0" Grid.Row="4" Grid.Column="2"/>
+                <Switch x:Name="SwitchPVmax" Grid.Row="4" Grid.Column="3"/>
+            </Grid>
+
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpDegatsSoins" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Label FontSize="5"/>
+            <Button x:Name="SubirDegats" Clicked="ButtonSubirDegats_Click" Text="Subir des dégâts"/>
+            <Button x:Name="ButtonHeal" Clicked="ButtonHeal_Click" Text="Heal"/>
+            <Button x:Name="ButtonGainBouclier" Clicked="ButtonGainBouclier_Click" Text="Gain de bouclier"/>
+            <Entry x:Name="EntryDegatsRecus" TextColor="White" Keyboard="Numeric" HorizontalTextAlignment="Center" Margin="150,0"/>
+            <Label/>
+            <Label/>
+            <Button x:Name="ButtonLiens" Text="Liens" Clicked="ButtonLiens_Click"/>
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpLiens" VerticalOptions="End" Margin="0,61" BackgroundColor="White" IsVisible="false">
+            <Label Text="Vous êtes lié avec :" FontSize="16" TextColor="#ABDDE0" HorizontalTextAlignment="Center"/>
+            <Label/>
+            <Grid>
+                <Label Text="Bardan" FontSize="16" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <CheckBox  Grid.Row="0" Grid.Column="1"/>
+                <Label Text="Kaleth" FontSize="16" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                <CheckBox Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Mesmero" FontSize="16" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+                <CheckBox Grid.Row="4" Grid.Column="1"/>
+                <Label Text="Mirio" FontSize="16" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="3"/>
+                <CheckBox Grid.Row="0" Grid.Column="4"/>
+                <Label Text="Sakki" FontSize="16" TextColor="#ABDDE0" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="3"/>
+                <CheckBox Grid.Row="2" Grid.Column="4"/>
+            </Grid>
+            <Label/>
+
+
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsAutoAttack" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsAutoAttack" Text="Valider" Clicked="ButtonValiderDegatsAutoAttack_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsAutoAttack" Text="Annuler" Clicked="ButtonAnnulerDegatsAutoAttack_Click"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpDegatsReelsComp1" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Label FontSize="5"/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp1" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsComp1" Text="Annuler" Clicked="ButtonAnnulerDegatsComp1_Click"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpDegatsReelsComp2" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Label FontSize="5"/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp2" Text="Dégats réellements infligés par la compétence 2" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp2" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsComp2" Text="Valider" Clicked="ButtonValiderDegatsComp2_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsComp2" Text="Annuler" Clicked="ButtonAnnulerDegatsComp2_Click"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+        </StackLayout>
+
+        <StackLayout x:Name="PopUpDegatsReelsComp3" VerticalOptions="End" Margin="0,0" BackgroundColor="#ABDDE0" IsVisible="false">
+            <Label FontSize="5"/>
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelDegatsReelsComp3" Text="Dégats réellements infligés par la compétence 2" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+            <Entry x:Name="EntryDegatsReelsComp3" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
+            <Button x:Name="ButtonValiderDegatsComp3" Text="Valider" Clicked="ButtonValiderDegatsComp3_Click"/>
+            <Button x:Name="ButtonAnnulerDegatsComp3" Text="Annuler" Clicked="ButtonAnnulerDegatsComp3_Click"/>
+            <RadioButton x:Name="RadioButtonComp3EchecCritique"  TextColor="White" Content="Echec critique"/>
+            <RadioButton x:Name="RadioButtonComp3CoupNormal"  TextColor="White" Content="Coup normal" IsChecked="True"/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+            <Label/>
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>
