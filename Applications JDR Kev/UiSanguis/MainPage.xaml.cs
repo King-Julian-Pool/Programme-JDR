@@ -23,7 +23,7 @@ namespace UiSanguis
         int Bouclier = 0;
         int Armure = 6;
         int ResistMagique = -3;
-        int Intelligence = 10;
+        int Intelligence = 2;
         int Force = 18;
         int Agilité = 18;
         int Initiative = 32;
@@ -662,7 +662,7 @@ namespace UiSanguis
 
             if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges -= degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
 
                 if (degatsAugmentes() == true)
                 {
@@ -745,7 +745,7 @@ namespace UiSanguis
 
             if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges -= degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
 
                 if (degatsAugmentes() == true)
                 {
@@ -850,7 +850,7 @@ namespace UiSanguis
 
             if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges -= degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
 
                 if (degatsAugmentes() == true)
                 {
@@ -921,7 +921,7 @@ namespace UiSanguis
 
             if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges -= degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
 
                 if (degatsAugmentes() == true)
                 {
