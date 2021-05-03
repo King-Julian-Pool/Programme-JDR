@@ -74,7 +74,7 @@
                 <Label Text="Béni" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
                 <CheckBox x:Name="CheckBoxBeni" HorizontalOptions="End" Grid.Row="5" Grid.Column="1" CheckedChanged="CheckBoxBeni_CheckedChanged"/>
                 <Label Text="Maudit" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
-                <CheckBox x:Name="CheckBoxMaudit" HorizontalOptions="End" Grid.Row="5" Grid.Column="2" CheckedChanged="CheckBoxMaudit_CheckedChanged"/>
+                <CheckBox x:Name="CheckBoxMaudit" HorizontalOptions="End" Grid.Row="5" Grid.Column="2" CheckedChanged="CheckBoxMaudit_CheckedChanged" IsChecked="True"/>
             </Grid>
         </StackLayout>
 
@@ -117,7 +117,7 @@
             <Label Text="Vous êtes lié avec :" FontSize="16" TextColor="Maroon" HorizontalTextAlignment="Center"/>
             <Label/>
             <Grid>
-                <Label Text="Bardan" FontSize="16" TextColor="Maroon" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Kaleth" FontSize="16" TextColor="Maroon" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                 <CheckBox  Grid.Row="0" Grid.Column="1"/>
                 <Label Text="Livid" FontSize="16" TextColor="Maroon" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0"/>
                 <CheckBox Grid.Row="2" Grid.Column="1"/>

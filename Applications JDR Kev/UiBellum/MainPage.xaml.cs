@@ -16,16 +16,16 @@ namespace UiBellum
         }
 
         // ------------- Définition des variables ------------- 
-        int PVmax = 163;
-        int PVactuels = 163;
+        int PVmax = 150;
+        int PVactuels = 150;
         int Bouclier = 0;
         int ArmureInitiale = 20;
-        int Armure = 20;
+        int Armure = 19;
         int ResistMagiqueInitiale = 17;
-        int ResistMagique = 17;
-        int Intelligence = 10;
+        int ResistMagique = 16;
+        int Intelligence = 2;
         int Force = 21;
-        int Agilité = 10;
+        int Agilité = 2;
         int Initiative = 12;
         int Pm = 4;
         int degatsInfliges;
@@ -713,7 +713,7 @@ namespace UiBellum
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
 
             bool AutoAttack = await DisplayAlert("Auto-Attack", "Voulez-vous infliger jusqu'à " + degatsInfliges + " dégâts?", "Ok", "Annuler");
@@ -776,18 +776,21 @@ namespace UiBellum
         private async void ButtonComp1_Click(object sender, EventArgs e)
         {
             degatsInfliges = 7 + Force/2;
+            int degatsInfligesCritique = degatsInfliges + 3 + Force / 2;
 
             if (Beni() == true && Maudit() == false)
             {
                 degatsInfliges += degatsInfliges / 10;
+                degatsInfligesCritique += degatsInfligesCritique / 10;
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
+                degatsInfligesCritique = 90 * degatsInfligesCritique / 100;
             }
 
-                bool comp1 = await DisplayAlert("Charge héroïque", "Vous chargerez une cible et arriverez à son corps à corps.\nDégâts = " + degatsInfliges + "\nArmure = +" + (Force/3) + "\nRM = +" + (PVmax/50) + "\n\n- Echec critique : la cible ne devient pas vulnérable\n\n- Coup critique :\nDégats = " + (degatsInfliges + 3 + Force/2) + "\nLa cible est étourdie", "Ok", "Annuler");
+                bool comp1 = await DisplayAlert("Charge héroïque", "Vous chargerez une cible et arriverez à son corps à corps.\nDégâts = " + degatsInfliges + "\nArmure = +" + (Force/3) + "\nRM = +" + (PVmax/50) + "\n\n- Echec critique : la cible ne devient pas vulnérable\n\n- Coup critique :\nDégats = " + degatsInfligesCritique + "\nLa cible est étourdie", "Ok", "Annuler");
 
                 switch (comp1)
                 {
