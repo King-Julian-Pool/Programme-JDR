@@ -22,7 +22,7 @@ namespace UiRunae
         int Armure = 8;
         int ResistMagique = 4;
         int Intelligence = 21;
-        int Force = 10;
+        int Force = 2;
         int Agilité = 15;
         int Initiative = 29;
         int Pm = 3;
