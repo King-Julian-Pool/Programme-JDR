@@ -126,7 +126,7 @@
                 <CheckBox Grid.Row="2" Grid.Column="1"/>
                 <Label Text="Mesmero" FontSize="16" TextColor="#B40CEA" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="0"/>
                 <CheckBox Grid.Row="4" Grid.Column="1"/>
-                <Label Text="Mirio" FontSize="16" TextColor="#B40CEA" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="3"/>
+                <Label Text="Kaleth" FontSize="16" TextColor="#B40CEA" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="3"/>
                 <CheckBox Grid.Row="0" Grid.Column="4"/>
                 <Label Text="Sakki" FontSize="16" TextColor="#B40CEA" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="3"/>
                 <CheckBox Grid.Row="2" Grid.Column="4"/>

@@ -21,8 +21,8 @@ namespace UiMortis
         int Bouclier = 0;
         int Armure = 11;
         int ResistMagique = 12;
-        int Intelligence = 10;
-        int Force = 10;
+        int Intelligence = 2;
+        int Force = 2;
         int Agilité = 37;
         int Initiative = 51;
         int Pm = 5;
