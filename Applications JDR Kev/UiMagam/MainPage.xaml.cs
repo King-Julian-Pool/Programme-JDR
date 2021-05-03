@@ -16,14 +16,14 @@ namespace UiMagam
         }
 
         // ------------- Définition des variables ------------- 
-        int PVmax = 120;
-        int PVactuels = 120;
+        int PVmax = 108;
+        int PVactuels = 108;
         int Bouclier = 0;
-        int Armure = 4;
-        int ResistMagique = 14;
+        int Armure = 3;
+        int ResistMagique = 13;
         int Intelligence = 38;
-        int Force = 10;
-        int Agilité = 10;
+        int Force = 2;
+        int Agilité = 2;
         int Initiative = 1;
         int Pm = 4;
         int degatsInfliges;
@@ -643,11 +643,13 @@ namespace UiMagam
             if (Beni() == true && Maudit() == false)
             {
                 degatsInfliges += degatsInfliges / 10;
+                quartDegatsInfliges += quartDegatsInfliges / 10;
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
+                quartDegatsInfliges = 90 * quartDegatsInfliges / 100;
             }
 
             bool AutoAttack = await DisplayAlert("Auto-Attack", "- Infliger jusqu'à " + (degatsInfliges + quartDegatsInfliges) + " dégâts à une cible unique\n\nOu\n\n - Infliger jusqu'à " + degatsInfliges + " dégâts à une cible et " + quartDegatsInfliges + " dégâts à jusqu'à 3 autres cibles ?", "Oui", "Non");
@@ -732,8 +734,8 @@ namespace UiMagam
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
-                degatsInfliges1Cible += degatsInfliges1Cible / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
+                degatsInfliges1Cible = 90 * degatsInfliges1Cible / 100;
             }
 
             bool comp1 = await DisplayAlert("Requiem", "- 1 cible :\nDégâts = " + degatsInfliges1Cible + "\n\n- Plusieurs cibles :\nDégâts = " + degatsInfliges + " + 1 par 2 ennemis touchés", "Ok", "Annuler");
@@ -804,7 +806,7 @@ namespace UiMagam
         private async void ButtonComp2_Click(object sender, EventArgs e)
         {
             degatsInfliges = 2 + ResistMagique / 2;
-            int bouclierComp2 = degatsInfliges * 4;
+
 
             if (Beni() == true && Maudit() == false)
             {
@@ -813,8 +815,10 @@ namespace UiMagam
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
+
+            int bouclierComp2 = degatsInfliges * 4;
 
             bool comp2 = await DisplayAlert("Décharge lumineuse", "- Echec critique :\nDégâts = " + degatsInfliges + "\nBouclier = +" + bouclierComp2 + " pour vous et votre cible pendant 1 tour\nLa boule n'emmagasine aucun dégât\n\n- Coup normal :\nDégâts = " + degatsInfliges + "\nBouclier = + " + bouclierComp2 + " pendant 1 tour\nLa boule emmagasine 33% des dégâts subis pendant un tour\n\n- Coup critique :\nDégâts = " + degatsInfliges + " à deux cibles\nBouclier = + " + bouclierComp2 + " pendant 1 tour\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour","Ok","Annuler");
 
@@ -905,11 +909,11 @@ namespace UiMagam
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
-                degatsEnnemiA += degatsEnnemiA / 10;
-                degatsEnnemiB += degatsEnnemiB / 10;
-                degatsEnnemiC += degatsEnnemiC / 10;
-                degatsEnnemiD += degatsEnnemiD / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
+                degatsEnnemiA = 90 * degatsEnnemiA / 100;
+                degatsEnnemiB = 90 * degatsEnnemiB / 100;
+                degatsEnnemiC = 90 * degatsEnnemiC / 100;
+                degatsEnnemiD = 90 * degatsEnnemiD / 100;
             }
 
             bool comp2 = await DisplayAlert("Vous ne devriez pas exister", "- Echec critique : La compétence échoue\n\n- Coup normal :\nDégats ennemi A = " + degatsEnnemiA + "\nDégats ennemi B = " + degatsEnnemiB + "\nDégats ennemi C = " + degatsEnnemiC + "\nDégats ennemi D = " + degatsEnnemiD, "Ok", "Annuler");

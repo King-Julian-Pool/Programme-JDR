@@ -20,6 +20,8 @@
                     <Label x:Name="LabelArmure" Text="Armure : 0" FontSize="16" Padding="10,0,30,0"/>
                     <Label x:Name="LabelResistMagique" Text="Résist. Magique : 0" FontSize="16" Padding="10,0,30,5"/>
                     <Button x:Name="ButtonModifStats" Clicked="ButtonModifStats_Click" Text="Modifier stats"/>
+                    <Label/>
+                    <Label/>
                 </StackLayout>
                 <StackLayout Grid.Column="1">
                     <Label x:Name="LabelIntelligence" Text="Intelligence : 0" FontSize="16" Padding="10,10,30,0"/>
@@ -32,7 +34,6 @@
                 </StackLayout>
             </Grid>
 
-            <Label x:Name="LabelInfoTitre" FontSize="16" FontAttributes="Bold"/>
             <Label x:Name="LabelInfo" FontSize="24"/>
 
 
@@ -77,7 +78,7 @@
                 <Label Text="Béni" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
                 <CheckBox x:Name="CheckBoxBeni" HorizontalOptions="End" Grid.Row="5" Grid.Column="1" CheckedChanged="CheckBoxBeni_CheckedChanged"/>
                 <Label Text="Maudit" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
-                <CheckBox x:Name="CheckBoxMaudit" HorizontalOptions="End" Grid.Row="5" Grid.Column="2" CheckedChanged="CheckBoxMaudit_CheckedChanged"/>
+                <CheckBox x:Name="CheckBoxMaudit" HorizontalOptions="End" Grid.Row="5" Grid.Column="2" CheckedChanged="CheckBoxMaudit_CheckedChanged" IsChecked="True"/>
             </Grid>
         </StackLayout>
 
@@ -106,7 +107,7 @@
         </StackLayout>
 
         <StackLayout x:Name="PopUpDegatsSoins" VerticalOptions="End" Margin="0,0" BackgroundColor="#26AA33" IsVisible="false">
-            <Label FontSize="5"/>
+            <Label FontSize="1"/>
             <Button x:Name="SubirDegats" Clicked="ButtonSubirDegats_Click" Text="Subir des dégâts"/>
             <Button x:Name="ButtonHeal" Clicked="ButtonHeal_Click" Text="Heal"/>
             <Button x:Name="ButtonGainBouclier" Clicked="ButtonGainBouclier_Click" Text="Gain de bouclier"/>
