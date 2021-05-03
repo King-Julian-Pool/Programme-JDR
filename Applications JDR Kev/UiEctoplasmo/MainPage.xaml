@@ -20,6 +20,8 @@
                     <Label x:Name="LabelArmure" Text="Armure : 0" FontSize="16" Padding="10,0,30,0"/>
                     <Label x:Name="LabelResistMagique" Text="Résist. Magique : 0" FontSize="16" Padding="10,0,30,5"/>
                     <Button x:Name="ButtonModifStats" Clicked="ButtonModifStats_Click" Text="Modifier stats"/>
+                    <Label/>
+                    <Label/>
                 </StackLayout>
                 <StackLayout Grid.Column="1">
                     <Label x:Name="LabelIntelligence" Text="Intelligence : 0" FontSize="16" Padding="10,10,30,0"/>
@@ -32,7 +34,7 @@
                 </StackLayout>
             </Grid>
 
-            <Label x:Name="LabelInfo" FontSize="24" Margin="0,30,0,0"/>
+            <Label x:Name="LabelInfo" FontSize="24" />
 
 
             <Grid x:Name="GridAction" ColumnDefinitions="70,240,60">

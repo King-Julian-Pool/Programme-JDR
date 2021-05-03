@@ -23,7 +23,7 @@ namespace UiEctoplasmo
         int ResistMagique = 8;
         int Intelligence = 14;
         int Force = 22;
-        int Agilité = 10;
+        int Agilité = 2;
         int Initiative = 1000;
         int Pm = 5;
         int degatsInfliges;
@@ -606,23 +606,27 @@ namespace UiEctoplasmo
 
         private void ButtonDebutTour_Click(object sender, EventArgs e)
         {
-            if (PourcentageBouclier - Bouclier > 50)
+            if (CdComp2 != 4)
             {
-                PourcentageBouclier -= Bouclier;
-            }
-            else
-            {
-                PourcentageBouclier = 50;
-            }
+                if (PourcentageBouclier - Bouclier > 50)
+                {
+                    PourcentageBouclier -= Bouclier;
+                }
+                else
+                {
+                    PourcentageBouclier = 50;
+                }
 
-            if (ReserveBouclier + Bouclier < 150)
-            {
-                ReserveBouclier += Bouclier;
+                if (ReserveBouclier + Bouclier < 150)
+                {
+                    ReserveBouclier += Bouclier;
+                }
+                else
+                {
+                    ReserveBouclier = 150;
+                }
             }
-            else
-            {
-                ReserveBouclier = 150;
-            }
+           
             Bouclier = 0;
             affichageInitial();
         }
@@ -667,7 +671,7 @@ namespace UiEctoplasmo
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
 
             bool AutoAttack = await DisplayAlert("Auto-Attack", "Infliger jusqu'à " + degatsInfliges +" et gagner " + (PourcentageBouclier * degatsInfliges / 100) + " points de boucliers par ennemi touché ?", "Oui", "Non");
@@ -742,7 +746,7 @@ namespace UiEctoplasmo
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
 
             bool comp1 = await DisplayAlert("Transfert", "Cette compétence ne peut pas toucher un point faible.\n\nCoup normal :\nDégâts = " + degatsInfliges + "\nBouclier = " + (PourcentageBouclier * degatsInfliges / 100) + "\n\n- Ennemi touché 2 fois par la compétence :\nDégâts = " + (degatsInfliges * 2) + "\nBouclier = " + (PourcentageBouclier * (degatsInfliges * 2) / 100) + "\n\n- Coup Critique :\nDégâts +50%" , "Ok", "Annuler");
@@ -818,10 +822,10 @@ namespace UiEctoplasmo
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
 
-            bool comp2 = await DisplayAlert("Rejoins moi", "Vous attirez une cible à votre corps à corps et lui infligez jusqu'à " + degatsInfliges + " dégâts et gagnez jusqu'à " + (PourcentageBouclier * degatsInfliges / 100) + " points de bouclier.\n\nVotre réserve se vide.\n\nLe bouclier généré n'affaiblit pas votre relique.", "Ok", "Annuler");
+            bool comp2 = await DisplayAlert("Rejoins moi", "Vous attirez une cible à votre corps à corps et lui infligez jusqu'à " + degatsInfliges + " dégâts et gagnez jusqu'à " + ((PourcentageBouclier + 2 * ReserveBouclier / 3) * degatsInfliges / 100) + " points de bouclier.\n\nVotre réserve se vide.\n\nLe bouclier généré n'affaiblit pas votre relique.", "Ok", "Annuler");
 
             switch (comp2)
             {
@@ -847,12 +851,12 @@ namespace UiEctoplasmo
             }
             else
             {
-                LabelInfo.Text = "Vous attirez une cible à votre corps à corps et lui infligez " + DegatsReelsComp2Num + " dégâts et gagnez " + (PourcentageBouclier * degatsInfliges /100) + " points de bouclier";
-                Bouclier = (PourcentageBouclier * degatsInfliges / 100);
-                
-                
                 PourcentageBouclier += 2 * ReserveBouclier / 3;
+                Bouclier = (PourcentageBouclier * degatsInfliges / 100);
                 ReserveBouclier = 0;
+
+                LabelInfo.Text = "Vous attirez une cible à votre corps à corps et lui infligez " + DegatsReelsComp2Num + " dégâts et gagnez " + (PourcentageBouclier * degatsInfliges /100) + " points de bouclier";
+
 
                 CdComp2 = 4;
                 if (CdComp1 > 0)
@@ -883,7 +887,7 @@ namespace UiEctoplasmo
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = 90 * degatsInfliges / 100;
             }
 
             bool comp2 = await DisplayAlert("Pusilli Ectoplasmi", "Réincarner en spectre jusqu'à 3 adversaires morts au cours du combat.\nChaque spectre inflige jusqu'à " + degatsInfliges + " dégâts et vous fait gagner jusqu'à " + (PourcentageBouclier * degatsInfliges / 100) + " points de boucliers.", "Ok", "Annuler");
