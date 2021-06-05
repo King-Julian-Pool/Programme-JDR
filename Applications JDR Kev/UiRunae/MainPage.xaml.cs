@@ -210,29 +210,30 @@ namespace UiRunae
                     degatsStockes += degatsReduits;
                     degatsRecusNum -= (int)Math.Round((double)degatsReduits, MidpointRounding.AwayFromZero);
                     LabelInfo.Text = "Vous subissez " + degatsRecusNum + " dégâts et stockez " + degatsReduits + " dégats";
+
+
+
+                    if (Bouclier == 0)
+                    {
+                        PVactuels -= degatsRecusNum;
+                    }
+                    else if (Bouclier >= degatsRecusNum)
+                    {
+                        Bouclier -= degatsRecusNum;
+                    }
+                    else
+                    {
+                        degatsRecusNum -= Bouclier;
+                        Bouclier -= Bouclier;
+                        PVactuels -= degatsRecusNum;
+                    }
+
+                    if (PVactuels < 0)
+                    {
+                        PVactuels = 0;
+                    }
                 }
             }
-
-            if (Bouclier == 0)
-            {
-                PVactuels -= degatsRecusNum;
-            }
-            else if (Bouclier >= degatsRecusNum)
-            {
-                Bouclier -= degatsRecusNum;
-            }
-            else
-            {
-                degatsRecusNum -= Bouclier;
-                Bouclier -= Bouclier;
-                PVactuels -= degatsRecusNum;
-            }
-
-            if (PVactuels < 0)
-            {
-                PVactuels = 0;
-            }
-
             AffichageInitial();
 
             return;
