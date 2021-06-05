@@ -61,6 +61,8 @@
             <Grid>
                 <Button x:Name="ButtonPVactuels" Clicked="ButtonPVactuels_Click" Text="PV actuels" Grid.Row="0" Grid.Column="0" FontSize="12"/>
                 <Button x:Name="ButtonPVmax" Clicked="ButtonPVmax_Click" Text="PV max" Grid.Row="0" Grid.Column="1" FontSize="12"/>
+                <Button x:Name="ButtonDegatsStockes" Clicked="ButtonDegatsStockes_Click" Text="Degats Stockes" Grid.Row="1" Grid.Column="1" FontSize="8" HorizontalOptions="Start" Margin="0,0,54,0"/>
+                <Button x:Name="ButtonDegatsAugmentes" Clicked="ButtonDegatsAugmentes_Click" Text="Degats Augmentes" Grid.Row="1" Grid.Column="1" FontSize="6" HorizontalOptions="End" Margin="54,0,0,0"/>
                 <Button x:Name="ButtonCdComp1" Clicked="ButtonCdComp1_Click" Text="CD1" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="Start" Margin="0,0,70,0"/>
                 <Button x:Name="ButtonCdComp2" Clicked="ButtonCdComp2_Click" Text="CD2" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="Center" Margin="35,0,35,0"/>
                 <Button x:Name="ButtonCdComp3" Clicked="ButtonCdComp3_Click" Text="CD3" Grid.Row="2" Grid.Column="1" FontSize="12" HorizontalOptions="End" Margin="70,0,0,0"/>
@@ -138,56 +140,6 @@
 
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="Blue" IsVisible="false">
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" TextColor="White" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsAutoAttack" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsAutoAttack" Text="Valider" Clicked="ButtonValiderDegatsAutoAttack_Click"/>
-            <Button x:Name="ButtonAnnulerDegatsAutoAttack" Text="Annuler" Clicked="ButtonAnnulerDegatsAutoAttack_Click"/>
-            <RadioButton x:Name="RadioButtonAutoAttackEchecCritique"  TextColor="White" Content="Echec critique"/>
-            <RadioButton x:Name="RadioButtonAutoAttackCoupNormal"  TextColor="White" Content="Coup normal" IsChecked="True"/>
-            <RadioButton x:Name="RadioButtonAutoAttackCoupCritique" TextColor="White" Content="Coup critique"/>
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label/>
-        </StackLayout>
-
-        <StackLayout x:Name="PopUpDegatsReelsComp1" VerticalOptions="End" Margin="0,0" BackgroundColor="Blue" IsVisible="false">
-            <Label FontSize="5"/>
-            <Label/>
-            <Label/>
-            <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" TextColor="White" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp1" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
-            <Button x:Name="ButtonAnnulerDegatsComp1" Text="Annuler" Clicked="ButtonAnnulerDegatsComp1_Click"/>
-            <RadioButton x:Name="RadioButtonComp1EchecCritique"  TextColor="White" Content="Echec critique"/>
-            <RadioButton x:Name="RadioButtonComp1CoupNormalA"  TextColor="White" Content="Rune A" IsChecked="True"/>
-            <RadioButton x:Name="RadioButtonComp1CoupNormalB"  TextColor="White" Content="Rune B"/>
-            <RadioButton x:Name="RadioButtonComp1CoupCritique" TextColor="White" Content="Coup critique"/>
-            <Label/>
-            <Label/>
-            <Label/>
-        </StackLayout>
-
-        <StackLayout x:Name="PopUpDegatsReelsComp3" VerticalOptions="End" Margin="0,0" BackgroundColor="Blue" IsVisible="false">
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label x:Name="LabelDegatsReelsComp3" Text="Dégats réellements infligés par la compétence 3" TextColor="White" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp3" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsComp3" Text="Valider" Clicked="ButtonValiderDegatsComp3_Click"/>
-            <Button x:Name="ButtonAnnulerDegatsComp3" Text="Annuler" Clicked="ButtonAnnulerDegatsComp3_Click"/>
-            <RadioButton x:Name="RadioButtonComp3EchecCritique"  TextColor="White" Content="Echec critique"/>
-            <RadioButton x:Name="RadioButtonComp3CoupCritique"  TextColor="White" Content="Coup normal" IsChecked="True"/>
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label/>
-        </StackLayout>
     </Grid>
 
 </ContentPage>
