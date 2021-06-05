@@ -9,7 +9,7 @@
                 <Grid>
                     <Entry x:Name="EntryPerso1" Text="Bardan" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="0"/>
                     <Label x:Name="EntryPerso2" Text="Bellum" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" FontSize="24" Grid.Column="1"/>
-                    <Entry x:Name="EntryPerso3" Text="Niveau" HorizontalTextAlignment="Center" TextColor="White" FontSize="24" IsSpellCheckEnabled="False" Grid.Column="2"/>
+                    <Button x:Name="ButtonPet" Text="Sonne" Clicked="ButtonPet_Click" BorderColor="White" BorderWidth="1" BackgroundColor="Maroon" HorizontalOptions="Center" TextColor="White" FontSize="24" Grid.Column="2"/>
                 </Grid>
             </Frame>
             <Grid>
@@ -41,12 +41,13 @@
                 <Button x:Name="ButtonFinTour" Text="Passer son tour" TextColor="White" BackgroundColor="Maroon" BorderColor="Black" BorderWidth="2" Clicked="ButtonFinTour_Click" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"/>
                 <Label Text="CD:" FontSize="16" FontAttributes="Bold" Grid.Row="0"  Grid.Column="2"/>
                 <Button x:Name="ButtonAutoAttack" Text="Auto-Attack" Clicked="ButtonAutoAttack_Click" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
-                <Button x:Name="ButtonComp1" Clicked="ButtonComp1_Click" Text="Charge héroïque" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
-                <Label x:Name="LabelCdComp1" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="0,0,30,0"/>
-                <Button x:Name="ButtonComp2" Clicked="ButtonComp2_Click" Text="Stabilisation" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
-                <Label x:Name="LabelCdComp2" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="2" Margin="0,0,30,0"/>
-                <Button x:Name="ButtonComp3" Clicked="ButtonComp3_Click" Text="Inébranlable" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
-                <Label x:Name="LabelCdComp3" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="2" Margin="0,0,30,0"/>
+                <Button x:Name="ButtonComp1" Clicked="ButtonComp1_Click" Text="Charge héroïque" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,130,0"/>
+                <Label x:Name="LabelCdComp1" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="90,10,130,10"/>
+                <Button x:Name="ButtonComp2" Clicked="ButtonComp2_Click" Text="Stabilisation" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,130,0"/>
+                <Label x:Name="LabelCdComp2" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="90,10,130,10"/>
+                <Button x:Name="ButtonComp3" Clicked="ButtonComp3_Click" Text="Inébranlable" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="110,0,20,0"/>
+                <Label x:Name="LabelCdComp3" TextColor="White" BackgroundColor="Maroon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="20,10,20,10"/>
+                <Button x:Name="ButtonComp4" Clicked="ButtonComp4_Click" Text="Six Pieds sous terre" FontSize="12" FontAttributes="Bold" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="110,0,20,0"/>
                 <Label x:Name="LabelEtat" FontAttributes="Bold" TextColor="Maroon" FontSize="11" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" />
                 <Label x:Name="LabelBeniMaudit" FontAttributes="Bold" TextColor="Maroon" FontSize="11" Text="Béni" Grid.Row="5" Grid.Column="1" HorizontalOptions="End" Margin="-30,0" VerticalTextAlignment="Center"/>
             </Grid>
@@ -126,23 +127,28 @@
                 <Label Text="Mirio" FontSize="16" TextColor="Maroon" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="3"/>
                 <CheckBox Grid.Row="0" Grid.Column="4"/>
                 <Label Text="Sakki" FontSize="16" TextColor="Maroon" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="3"/>
-                <CheckBox Grid.Row="2" Grid.Column="4"/>
+                <CheckBox Grid.Row="2" Grid.Column="4" IsChecked="True"/>
             </Grid>
             <Label/>
 
 
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsAutoAttack" VerticalOptions="End" Margin="0,0" BackgroundColor="Maroon" IsVisible="false">
+        <StackLayout x:Name="PopUpDegatsSoinsPet" VerticalOptions="End" BackgroundColor="White" Margin="0,0" IsVisible="false">
+            <Label/>
+            <Label/>
+            <Label x:Name="LabelInfoPet" TextColor="Maroon" FontAttributes="Bold" FontSize="20"/>
+            <Label FontSize="3"/>
+            <Label x:Name="LabelPvPet" Text="PVa/PVmax : 0/0" FontSize="16" Padding="10,10,30,0" TextColor="Maroon"/>
+            <ProgressBar x:Name="ProgressBarPvPet" Margin="10,0,10,0"/>
+            <Label x:Name="LabelBouclierPet" Text="Bouclier : 0" TextColor="Maroon" FontSize="16" Padding="10,0,30,0"/>
             <Label/>
             <Label/>
             <Label/>
-            <Label x:Name="LabelDegatsReelsAutoAttack" Text="Dégats réellements infligés par l'Auto-Attack" TextColor="White" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsAutoAttack" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsAutoAttack" Text="Valider" Clicked="ButtonValiderDegatsAutoAttack_Click"/>
-            <Button x:Name="ButtonAnnulerDegatsAutoAttack" Text="Annuler" Clicked="ButtonAnnulerDegatsAutoAttack_Click"/>
-            <Label/>
-            <Label/>
+            <Button x:Name="SubirDegatsPet" Clicked="ButtonSubirDegatsPet_Click" Text="Subir des dégâts"/>
+            <Button x:Name="ButtonHealPet" Clicked="ButtonHealPet_Click" Text="Heal"/>
+            <Button x:Name="ButtonGainBouclierPet" Clicked="ButtonGainBouclierPet_Click" Text="Gain de bouclier"/>
+            <Entry x:Name="EntryDegatsRecusPet" TextColor="Maroon" Keyboard="Numeric" HorizontalTextAlignment="Center" Margin="150,0"/>
             <Label/>
             <Label/>
             <Label/>
@@ -151,23 +157,6 @@
             <Label/>
         </StackLayout>
 
-        <StackLayout x:Name="PopUpDegatsReelsComp1" VerticalOptions="End" Margin="0,0" BackgroundColor="Maroon" IsVisible="false">
-            <Label FontSize="5"/>
-            <Label/>
-            <Label/>
-            <Label x:Name="LabelDegatsReelsComp1" Text="Dégats réellements infligés par la compétence 1" TextColor="White" FontSize="16" FontAttributes="Bold"/>
-            <Entry x:Name="EntryDegatsReelsComp1" TextColor="White" Keyboard="Numeric" Margin="150,0" HorizontalTextAlignment="Center"/>
-            <Button x:Name="ButtonValiderDegatsComp1" Text="Valider" Clicked="ButtonValiderDegatsComp1_Click"/>
-            <Button x:Name="ButtonAnnulerDegatsComp1" Text="Annuler" Clicked="ButtonAnnulerDegatsComp1_Click"/>
-            <RadioButton x:Name="RadioButtonComp1EchecCritique"  TextColor="White" Content="Echec critique"/>
-            <RadioButton x:Name="RadioButtonComp1CoupNormal"  TextColor="White" Content="Coup normal" IsChecked="True"/>
-            <RadioButton x:Name="RadioButtonComp1CoupCritique"  TextColor="White" Content="Coup critique"/>
-            <Label/>
-            <Label/>
-            <Label/>
-            <Label/>
-        </StackLayout>
-        
     </Grid>
 
 </ContentPage>
