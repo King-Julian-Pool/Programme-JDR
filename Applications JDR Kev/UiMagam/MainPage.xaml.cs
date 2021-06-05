@@ -39,8 +39,10 @@ namespace UiMagam
 
 
         // ------------- Définition des fonctions ------------- 
-        void couleurBarrePV()
+        private async void BarPv(ProgressBar ProgressBarPv)
         {
+            await ProgressBarPv.ProgressTo(Math.Round((double)PVactuels / PVmax, 1), 1000, Easing.CubicInOut);
+
             if (PVactuels <= PVmax / 4)
             {
                 ProgressBarPv.ProgressColor = Color.Red;
@@ -55,16 +57,10 @@ namespace UiMagam
             }
         }
 
-        private async void AnimProgressBarPv(ProgressBar ProgressBarPv)
-        {
-            await ProgressBarPv.ProgressTo(Math.Round((double)PVactuels / PVmax, 1), 1000, Easing.Linear);
-        }
-
-        void affichageInitial()
+        void AffichageInitial()
         {
             LabelPv.Text = "PV : " + PVactuels + "/" + PVmax;
-            couleurBarrePV();
-            AnimProgressBarPv(ProgressBarPv);
+            BarPv(ProgressBarPv);
             LabelArmure.Text = "Armure : " + Armure;
             LabelResistMagique.Text = "Résit. Magique : " + ResistMagique;
 
@@ -92,14 +88,10 @@ namespace UiMagam
                 LabelCdComp1.Text = "";
             }
 
-            if (CdComp2 != 0 && CdComp2 != 3)
+            if (CdComp2 != 0)
             {
                 ButtonComp2.IsEnabled = false;
                 LabelCdComp2.BackgroundColor = Color.FromRgb(38, 170, 51);
-            }
-            else if (CdComp2 == 3)
-            {
-                Bouclier -= BouclierComp2;
             }
             else
             {
@@ -156,12 +148,11 @@ namespace UiMagam
 
         }
 
-        void heal()
+        void Heal()
         {
             string PVsoignes = EntryDegatsRecus.Text;
-            int PVsoignesNum;
 
-            if (int.TryParse(PVsoignes, out PVsoignesNum) == false)
+            if (int.TryParse(PVsoignes, out int PVsoignesNum) == false)
             {
                 EntryDegatsRecus.Text = "E";
             }
@@ -172,21 +163,20 @@ namespace UiMagam
 
             if ((PVactuels + PVsoignesNum) < PVmax)
             {
-                PVactuels = PVactuels + PVsoignesNum;
+                PVactuels += PVsoignesNum;
             }
             else
             {
                 PVactuels = PVmax;
             }
-            affichageInitial();
+            AffichageInitial();
         }
 
-        void gainBouclier()
+        void GainBouclier()
         {
             string GainBouclier = EntryDegatsRecus.Text;
-            int GainBouclierNum;
 
-            if (int.TryParse(GainBouclier, out GainBouclierNum) == false)
+            if (int.TryParse(GainBouclier, out int GainBouclierNum) == false)
             {
                 EntryDegatsRecus.Text = "E";
             }
@@ -194,16 +184,15 @@ namespace UiMagam
             {
                 LabelInfo.Text = "Vous gagnez " + GainBouclierNum + " points de bouclier";
             }
-            Bouclier = Bouclier + GainBouclierNum;
-            affichageInitial();
+            Bouclier += GainBouclierNum;
+            AffichageInitial();
         }
 
-        void receptionDegats()
+        void ReceptionDegats()
         {
             string degatsRecus = EntryDegatsRecus.Text;
-            int degatsRecusNum;
 
-            if (int.TryParse(degatsRecus, out degatsRecusNum) == false)
+            if (int.TryParse(degatsRecus, out int degatsRecusNum) == false)
             {
                 EntryDegatsRecus.Text = "E";
             }
@@ -214,17 +203,17 @@ namespace UiMagam
 
             if (Bouclier == 0)
             {
-                PVactuels = PVactuels - degatsRecusNum;
+                PVactuels -= degatsRecusNum;
             }
             else if (Bouclier >= degatsRecusNum)
             {
-                Bouclier = Bouclier - degatsRecusNum;
+                Bouclier -= degatsRecusNum;
             }
             else
             {
-                degatsRecusNum = degatsRecusNum - Bouclier;
-                Bouclier = Bouclier - Bouclier;
-                PVactuels = PVactuels - degatsRecusNum;
+                degatsRecusNum -= Bouclier;
+                Bouclier -= Bouclier;
+                PVactuels -= degatsRecusNum;
             }
 
             if (PVactuels < 0)
@@ -232,46 +221,42 @@ namespace UiMagam
                 PVactuels = 0;
             }
 
-            affichageInitial();
+            AffichageInitial();
 
             return;
         }
 
 
-        int modifStats()
+        int ModifStats()
         {
             string ModifStats = EntryModifStats.Text;
-            int ModifStatsNum;
 
-            if (int.TryParse(ModifStats, out ModifStatsNum) == false)
+            if (int.TryParse(ModifStats, out int ModifStatsNum) == false)
             {
                 EntryModifStats.Text = "E";
             }
             return ModifStatsNum;
         }
-        int defDegatsBaseArmes()
+        int DefDegatsBaseArmes()
         {
             string DegatsBaseArmes = EntryDegatsBaseArmes.Text;
-            int DegatsBaseArmesNum;
 
-            if (int.TryParse(DegatsBaseArmes, out DegatsBaseArmesNum) == false)
+            if (int.TryParse(DegatsBaseArmes, out int DegatsBaseArmesNum) == false)
             {
                 EntryDegatsBaseArmes.Text = "E";
             }
             return DegatsBaseArmesNum;
         }
-        int defDegatsTotauxArmes()
+        int DefDegatsTotauxArmes()
         {
-            degatsBaseArmes = defDegatsBaseArmes();
-            int varForce;
+            degatsBaseArmes = DefDegatsBaseArmes();
+            double varForce;
             if (SwitchForce.IsToggled == true)
             {
                 string ArmeForce = EntryArmeForce.Text;
-                int ArmeForceNum;
-                if (int.TryParse(ArmeForce, out ArmeForceNum) == false)
+                if (int.TryParse(ArmeForce, out int ArmeForceNum) == false)
                 {
                     EntryArmeForce.Text = "1";
-                    varForce = Force;
                 }
 
                 if (ArmeForceNum == 0)
@@ -281,7 +266,7 @@ namespace UiMagam
                 }
                 else
                 {
-                    varForce = Force / ArmeForceNum;
+                    varForce = (int)Math.Round((double)Force / ArmeForceNum, MidpointRounding.AwayFromZero);
                 }
             }
             else
@@ -289,15 +274,13 @@ namespace UiMagam
                 varForce = 0;
             }
 
-            int varAgilite;
+            double varAgilite;
             if (SwitchAgilite.IsToggled == true)
             {
                 string ArmeAgilite = EntryArmeAgilite.Text;
-                int ArmeAgiliteNum;
-                if (int.TryParse(ArmeAgilite, out ArmeAgiliteNum) == false)
+                if (int.TryParse(ArmeAgilite, out int ArmeAgiliteNum) == false)
                 {
                     EntryArmeAgilite.Text = "1";
-                    varAgilite = Agilité;
                 }
 
                 if (ArmeAgiliteNum == 0)
@@ -307,7 +290,7 @@ namespace UiMagam
                 }
                 else
                 {
-                    varAgilite = Agilité / ArmeAgiliteNum;
+                    varAgilite = (int)Math.Round((double)Agilité / ArmeAgiliteNum, MidpointRounding.AwayFromZero);
                 }
             }
             else
@@ -315,15 +298,13 @@ namespace UiMagam
                 varAgilite = 0;
             }
 
-            int varIntelligence;
+            double varIntelligence;
             if (SwitchIntelligence.IsToggled == true)
             {
                 string ArmeIntelligence = EntryArmeIntelligence.Text;
-                int ArmeIntelligenceNum;
-                if (int.TryParse(ArmeIntelligence, out ArmeIntelligenceNum) == false)
+                if (int.TryParse(ArmeIntelligence, out int ArmeIntelligenceNum) == false)
                 {
                     EntryArmeIntelligence.Text = "1";
-                    varIntelligence = Intelligence;
                 }
 
                 if (ArmeIntelligenceNum == 0)
@@ -333,7 +314,7 @@ namespace UiMagam
                 }
                 else
                 {
-                    varIntelligence = Intelligence / ArmeIntelligenceNum;
+                    varIntelligence = (int)Math.Round((double)Intelligence / ArmeIntelligenceNum, MidpointRounding.AwayFromZero);
                 }
             }
             else
@@ -341,15 +322,13 @@ namespace UiMagam
                 varIntelligence = 0;
             }
 
-            int varPVmax;
+            double varPVmax;
             if (SwitchPVmax.IsToggled == true)
             {
                 string ArmePVmax = EntryArmePVmax.Text;
-                int ArmePVmaxNum;
-                if (int.TryParse(ArmePVmax, out ArmePVmaxNum) == false)
+                if (int.TryParse(ArmePVmax, out int ArmePVmaxNum) == false)
                 {
                     EntryArmePVmax.Text = "1";
-                    varPVmax = PVmax;
                 }
 
                 if (ArmePVmaxNum == 0)
@@ -359,7 +338,7 @@ namespace UiMagam
                 }
                 else
                 {
-                    varPVmax = PVmax / ArmePVmaxNum;
+                    varPVmax = (int)Math.Round((double)PVmax / ArmePVmaxNum, MidpointRounding.AwayFromZero);
                 }
             }
             else
@@ -367,7 +346,7 @@ namespace UiMagam
                 varPVmax = 0;
             }
 
-            degatsTotauxArmes = degatsBaseArmes + varForce + varAgilite + varIntelligence + varPVmax;
+            degatsTotauxArmes = (int) Math.Round(degatsBaseArmes + varForce + varAgilite + varIntelligence + varPVmax, MidpointRounding.AwayFromZero);
 
             return degatsTotauxArmes;
         }
@@ -398,7 +377,7 @@ namespace UiMagam
         // ------------- Assignation des contrôles ------------- 
         private void Page_Appearing(object sender, EventArgs e)
         {
-            affichageInitial();
+            AffichageInitial();
             LabelInfo.Text = " \n ";
         }
 
@@ -422,94 +401,94 @@ namespace UiMagam
 
         private void ButtonArmure_Click(object sender, EventArgs e)
         {
-            Armure = modifStats();
-            LabelInfo.Text = "Votre armure passe à " + modifStats() + "\n";
-            affichageInitial();
+            Armure = ModifStats();
+            LabelInfo.Text = "Votre armure passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonResistMagique_Click(object sender, EventArgs e)
         {
-            ResistMagique = modifStats();
-            LabelInfo.Text = "Votre résistance magique passe à " + modifStats();
-            affichageInitial();
+            ResistMagique = ModifStats();
+            LabelInfo.Text = "Votre résistance magique passe à " + ModifStats();
+            AffichageInitial();
         }
 
         private void ButtonForce_Click(object sender, EventArgs e)
         {
-            Force = modifStats();
-            LabelInfo.Text = "Votre force passe à " + modifStats() + "\n";
-            affichageInitial();
+            Force = ModifStats();
+            LabelInfo.Text = "Votre force passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonAgilite_Click(object sender, EventArgs e)
         {
-            Agilité = modifStats();
-            LabelInfo.Text = "Votre agilité passe à " + modifStats() + "\n";
-            affichageInitial();
+            Agilité = ModifStats();
+            LabelInfo.Text = "Votre agilité passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonInitiative_Click(object sender, EventArgs e)
         {
-            Initiative = modifStats();
-            LabelInfo.Text = "Votre initiative passe à " + modifStats() + "\n";
-            affichageInitial();
+            Initiative = ModifStats();
+            LabelInfo.Text = "Votre initiative passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonPm_Click(object sender, EventArgs e)
         {
-            Pm = modifStats();
-            LabelInfo.Text = "Vos PM passent à " + modifStats() + "\n";
-            affichageInitial();
+            Pm = ModifStats();
+            LabelInfo.Text = "Vos PM passent à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonPVactuels_Click(object sender, EventArgs e)
         {
-            PVactuels = modifStats();
-            LabelInfo.Text = "Vos PV actuels passent à " + modifStats() + "\n";
-            affichageInitial();
+            PVactuels = ModifStats();
+            LabelInfo.Text = "Vos PV actuels passent à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonPVmax_Click(object sender, EventArgs e)
         {
-            PVmax = modifStats();
-            LabelInfo.Text = "Vos PV maximum passent à " + modifStats() + "\n";
-            affichageInitial();
+            PVmax = ModifStats();
+            LabelInfo.Text = "Vos PV maximum passent à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonBouclier_Click(object sender, EventArgs e)
         {
-            Bouclier = modifStats();
-            LabelInfo.Text = "Vos points de bouclier passent à " + modifStats();
-            affichageInitial();
+            Bouclier = ModifStats();
+            LabelInfo.Text = "Vos points de bouclier passent à " + ModifStats();
+            AffichageInitial();
         }
 
         private void ButtonIntelligence_Click(object sender, EventArgs e)
         {
-            Intelligence = modifStats();
-            LabelInfo.Text = "Votre intelligence passe à " + modifStats() + "\n";
-            affichageInitial();
+            Intelligence = ModifStats();
+            LabelInfo.Text = "Votre intelligence passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonCdComp1_Click(object sender, EventArgs e)
         {
-            CdComp1 = modifStats();
-            LabelInfo.Text = "Le Cd de votre compétence 1 passe à " + modifStats() + "\n";
-            affichageInitial();
+            CdComp1 = ModifStats();
+            LabelInfo.Text = "Le Cd de votre compétence 1 passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonCdComp2_Click(object sender, EventArgs e)
         {
-            CdComp2 = modifStats();
-            LabelInfo.Text = "Le Cd de votre compétence 2 passe à " + modifStats() + "\n";
-            affichageInitial();
+            CdComp2 = ModifStats();
+            LabelInfo.Text = "Le Cd de votre compétence 2 passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonCdComp3_Click(object sender, EventArgs e)
         {
-            CdComp3 = modifStats();
+            CdComp3 = ModifStats();
             CdPassifComp3 = CdComp3 + 1;
-            LabelInfo.Text = "Le Cd de votre compétence 3 passe à " + modifStats() + "\n";
-            affichageInitial();
+            LabelInfo.Text = "Le Cd de votre compétence 3 passe à " + ModifStats() + "\n";
+            AffichageInitial();
         }
 
         private void ButtonArme_Click(object sender, EventArgs e)
@@ -526,7 +505,7 @@ namespace UiMagam
 
         private void CheckBoxBeni_CheckedChanged(object sender, EventArgs e)
         {
-            affichageInitial();
+            AffichageInitial();
             if (CheckBoxBeni.IsChecked == true)
             {
                 LabelInfo.Text = "Vous êtes désormais béni\n";
@@ -539,7 +518,7 @@ namespace UiMagam
 
         private void CheckBoxMaudit_CheckedChanged(object sender, EventArgs e)
         {
-            affichageInitial();
+            AffichageInitial();
             if (CheckBoxMaudit.IsChecked == true)
             {
                 LabelInfo.Text = "Vous êtes désormais maudit\n";
@@ -570,17 +549,17 @@ namespace UiMagam
 
         private void ButtonSubirDegats_Click(object sender, EventArgs e)
         {
-            receptionDegats();
+            ReceptionDegats();
         }
 
         private void ButtonHeal_Click(object sender, EventArgs e)
         {
-            heal();
+            Heal();
         }
 
         private void ButtonGainBouclier_Click(object sender, EventArgs e)
         {
-            gainBouclier();
+            GainBouclier();
         }
 
         private void ButtonLiens_Click(object sender, EventArgs e)
@@ -611,6 +590,10 @@ namespace UiMagam
                     {
                         CdComp2 -= 1;
                     }
+                    if (CdComp2 == 3)
+                    {
+                        Bouclier -= BouclierComp2;
+                    }
                     if (CdBouleLumiere > 0)
                     {
                         CdBouleLumiere -= 1;
@@ -624,7 +607,7 @@ namespace UiMagam
                         CdPassifComp3 -= 1;
                     }
 
-                    affichageInitial();
+                    AffichageInitial();
                     LabelInfo.Text = "Fin de tour\n";
 
                     break;
@@ -637,58 +620,37 @@ namespace UiMagam
 
         private async void ButtonAutoAttack_Click(object sender, EventArgs e)
         {
-            degatsInfliges = defDegatsTotauxArmes();
-            int quartDegatsInfliges = degatsInfliges / 4;
+            degatsInfliges = DefDegatsTotauxArmes();
+            int quartDegatsInfliges = (int) Math.Round((double)degatsInfliges / 4.0, MidpointRounding.AwayFromZero);
 
             if (Beni() == true && Maudit() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
-                quartDegatsInfliges += quartDegatsInfliges / 10;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 1.1, MidpointRounding.AwayFromZero);
+                quartDegatsInfliges = (int)Math.Round((double)quartDegatsInfliges / 1.1, MidpointRounding.AwayFromZero);
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges = 90 * degatsInfliges / 100;
-                quartDegatsInfliges = 90 * quartDegatsInfliges / 100;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 0.9, MidpointRounding.AwayFromZero);
+                quartDegatsInfliges = (int)Math.Round((double)quartDegatsInfliges*0.9, MidpointRounding.AwayFromZero);
             }
 
-            bool AutoAttack = await DisplayAlert("Auto-Attack", "- Infliger jusqu'à " + (degatsInfliges + quartDegatsInfliges) + " dégâts à une cible unique\n\nOu\n\n - Infliger jusqu'à " + degatsInfliges + " dégâts à une cible et " + quartDegatsInfliges + " dégâts à jusqu'à 3 autres cibles ?", "Oui", "Non");
+            String AutoAttack = await DisplayActionSheet("Auto-Attack", "Annuler", null, "- Cible unique : " + (degatsInfliges + quartDegatsInfliges) + " dégâts", "- Cibles multiples : " + degatsInfliges + " dégâts à une cible et " + quartDegatsInfliges + " dégâts à jusqu'à 3 autres cibles");
 
-            switch (AutoAttack)
+            if (AutoAttack == "Annuler" || AutoAttack == null)
             {
-                case true:
-
-                    PopUpDegatsReelsAutoAttack.IsVisible = true;
-
-                    break;
-
-                case false:
-
-                    break;
-            }
-        }
-        private void ButtonValiderDegatsAutoAttack_Click(object sender, EventArgs e)
-        {
-
-            string DegatsReelsAutoAttack = EntryDegatsReelsAutoAttack.Text;
-            int DegatsReelsAutoAttackNum;
-
-            if (int.TryParse(DegatsReelsAutoAttack, out DegatsReelsAutoAttackNum) == false)
-            {
-                EntryDegatsReelsAutoAttack.Text = "E";
+                return;
             }
             else
             {
-                if (RadioButtonAutoAttack1Cible.IsChecked == true)
+                if (AutoAttack == "- Cible unique : " + (degatsInfliges + quartDegatsInfliges) + " dégâts")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsAutoAttackNum + " dégâts à une seule cible";
+                    LabelInfo.Text = "Vous infligez " + (degatsInfliges + quartDegatsInfliges) + " dégâts à une seule cible";
                 }
-
-                else if (RadioButtonAutoAttackPlusieursCibles.IsChecked == true)
+                else if (AutoAttack == "- Cibles multiples : " + degatsInfliges + " dégâts à un cible et " + quartDegatsInfliges + " dégâts à jusqu'à 3 autres cibles")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsAutoAttackNum + " dégâts à une cible et " + (DegatsReelsAutoAttackNum / 4) + " aux autres cibles";
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à une cible et " + quartDegatsInfliges + " aux autres cibles";
                 }
-
                 if (CdComp1 > 0)
                 {
                     CdComp1 -= 1;
@@ -697,6 +659,10 @@ namespace UiMagam
                 {
                     CdComp2 -= 1;
                 }
+                if (CdComp2 == 3)
+                {
+                    Bouclier -= BouclierComp2;
+                }
                 if (CdBouleLumiere > 0)
                 {
                     CdBouleLumiere -= 1;
@@ -710,76 +676,53 @@ namespace UiMagam
                     CdPassifComp3 -= 1;
                 }
 
-                affichageInitial();
-
-                PopUpDegatsReelsAutoAttack.IsVisible = false;
+                AffichageInitial();
             }
-            return;
-        }
-        private void ButtonAnnulerDegatsAutoAttack_Click(object sender, EventArgs e)
-        {
-            PopUpDegatsReelsAutoAttack.IsVisible = false;
         }
 
         private async void ButtonComp1_Click(object sender, EventArgs e)
         {
-            degatsInfliges = 2 + 2 * Intelligence / 3;
-            int degatsInfliges1Cible = 2 + Intelligence / 2;
+            degatsInfliges = (int)Math.Round((double)2 + Intelligence * 0.66, MidpointRounding.AwayFromZero);
+            int degatsInfliges1Cible = (int)Math.Round((double)2 + Intelligence / 2.0, MidpointRounding.AwayFromZero);
 
             if (Beni() == true && Maudit() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
-                degatsInfliges1Cible += degatsInfliges1Cible / 10;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 1.1, MidpointRounding.AwayFromZero);
+                degatsInfliges1Cible = (int)Math.Round((double)degatsInfliges1Cible *1.1, MidpointRounding.AwayFromZero);
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges = 90 * degatsInfliges / 100;
-                degatsInfliges1Cible = 90 * degatsInfliges1Cible / 100;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 0.9, MidpointRounding.AwayFromZero);
+                degatsInfliges1Cible = (int)Math.Round((double)degatsInfliges1Cible * 0.9, MidpointRounding.AwayFromZero);
             }
 
-            bool comp1 = await DisplayAlert("Requiem", "- 1 cible :\nDégâts = " + degatsInfliges1Cible + "\n\n- Plusieurs cibles :\nDégâts = " + degatsInfliges + " + 1 par 2 ennemis touchés", "Ok", "Annuler");
+            string comp1 = await DisplayActionSheet("Auto-Attack", "Annuler", null, "- Cible unique : " + degatsInfliges1Cible + " dégâts", "- Cibles multiples : " + degatsInfliges + " dégâts à toutes les cibles + 1 par 2 ennemis touchés");
 
-            switch (comp1)
+            if (comp1 == "Annuler" || comp1 == null)
             {
-                case true:
-
-                    PopUpDegatsReelsComp1.IsVisible = true;
-
-                    break;
-
-                case false:
-
-                    break;
+                return;
             }
-        }
-        private void ButtonValiderDegatsComp1_Click(object sender, EventArgs e)
-        {
-            string DegatsReelsComp1 = EntryDegatsReelsComp1.Text;
-            int DegatsReelsComp1Num;
-
-            if (int.TryParse(DegatsReelsComp1, out DegatsReelsComp1Num) == false)
-            {
-                EntryDegatsReelsComp1.Text = "E";
-            }
-
             else
             {
-                if (RadioButtonComp11Cible.IsChecked == true)
+                if (comp1 == "- Cible unique : " + degatsInfliges1Cible + " dégâts")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts à une cible unique";
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges1Cible + " dégâts à une cible unique";
                 }
-                else if (RadioButtonComp1PlusieursCibles.IsChecked == true)
+                else if (comp1 == "- Cibles multiples : " + degatsInfliges + " dégâts à toutes les cibles + 1 par 2 ennemis touchés")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp1Num + " dégâts à tous les ennemis";
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à tous les ennemis + 1 par 2 ennemis touchés";
                 }
-
                 CdComp1 = 2;
 
                 if (CdComp2 > 0)
                 {
                     CdComp2 -= 1;
                 }
+                if (CdComp2 == 3)
+                {
+                    Bouclier -= BouclierComp2;
+                }
                 if (CdBouleLumiere > 0)
                 {
                     CdBouleLumiere -= 1;
@@ -794,75 +737,50 @@ namespace UiMagam
                 }
 
 
-                affichageInitial();
-                PopUpDegatsReelsComp1.IsVisible = false;
+                AffichageInitial();
             }
-        }
-        private void ButtonAnnulerDegatsComp1_Click(object sender, EventArgs e)
-        {
-            PopUpDegatsReelsComp1.IsVisible = false;
         }
 
         private async void ButtonComp2_Click(object sender, EventArgs e)
         {
-            degatsInfliges = 2 + ResistMagique / 2;
+            degatsInfliges = (int)Math.Round((double)2 + ResistMagique / 2.0, MidpointRounding.AwayFromZero);
 
 
             if (Beni() == true && Maudit() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 1.1, MidpointRounding.AwayFromZero);
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges = 90 * degatsInfliges / 100;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 0.9, MidpointRounding.AwayFromZero);
             }
 
-            int bouclierComp2 = degatsInfliges * 4;
+            BouclierComp2 = degatsInfliges * 4;
 
-            bool comp2 = await DisplayAlert("Décharge lumineuse", "- Echec critique :\nDégâts = " + degatsInfliges + "\nBouclier = +" + bouclierComp2 + " pour vous et votre cible pendant 1 tour\nLa boule n'emmagasine aucun dégât\n\n- Coup normal :\nDégâts = " + degatsInfliges + "\nBouclier = + " + bouclierComp2 + " pendant 1 tour\nLa boule emmagasine 33% des dégâts subis pendant un tour\n\n- Coup critique :\nDégâts = " + degatsInfliges + " à deux cibles\nBouclier = + " + bouclierComp2 + " pendant 1 tour\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour","Ok","Annuler");
-
-            switch (comp2)
+            string comp2 = await DisplayActionSheet("Décharge lumineuse", "Annuler", null, "- Echec critique :\nDégâts = " + degatsInfliges + "\nBouclier = +" + BouclierComp2 + " pour vous et votre cible pendant 1 tour\nLa boule n'emmagasine aucun dégât\n", "- Coup normal :\nDégâts = " + degatsInfliges + "\nBouclier = + " + BouclierComp2 + " pendant 1 tour\nLa boule emmagasine 33% des dégâts subis pendant un tour\n", "- Coup critique :\nDégâts = " + degatsInfliges + " à deux cibles\nBouclier = + " + (BouclierComp2 * 2) + " pendant 1 tour\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour");
+            if (comp2 == "Annuler" || comp2 == null)
             {
-                case true:
-
-                    PopUpDegatsReelsComp2.IsVisible = true;
-
-                    break;
-
-                case false:
-
-                    break;
-            }
-        }
-        private void ButtonValiderDegatsComp2_Click(object sender, EventArgs e)
-        {
-            string DegatsReelsComp2 = EntryDegatsReelsComp2.Text;
-            int DegatsReelsComp2Num;
-
-            if (int.TryParse(DegatsReelsComp2, out DegatsReelsComp2Num) == false)
-            {
-                EntryDegatsReelsComp2.Text = "E";
+                return;
             }
             else
             {
-                BouclierComp2 = DegatsReelsComp2Num * 4;
-
-                if (RadioButtonComp2EchecCritique.IsChecked == true)
+                if (comp2 == "- Echec critique :\nDégâts = " + degatsInfliges + "\nBouclier = +" + BouclierComp2 + " pour vous et votre cible pendant 1 tour\nLa boule n'emmagasine aucun dégât\n")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp2Num + " dégâts.\nVotre cible et vous recevez " + (DegatsReelsComp2Num * 4) + " points de bouclier pour 1 tour.\nLa boule n'emmagasine aucun dégât.";
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts.\nVotre cible et vous recevez " + BouclierComp2 + " points de bouclier pour 1 tour.\nLa boule n'emmagasine aucun dégât.";
                 }
-                else if (RadioButtonComp2CoupNormal.IsChecked == true)
+                else if (comp2 == "- Coup normal :\nDégâts = " + degatsInfliges + "\nBouclier = + " + BouclierComp2 + " pendant 1 tour\nLa boule emmagasine 33% des dégâts subis pendant un tour\n")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp2Num + " dégâts.\nVous recevez " + (DegatsReelsComp2Num * 4) + " points de bouclier pour 1 tour.\nLa boule emmagasine 33% des dégâts subis pendant un tour.";
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts.\nVous recevez " + BouclierComp2 + " points de bouclier pour 1 tour.\nLa boule emmagasine 33% des dégâts subis pendant un tour.";
+                    LabelBouleLumière.Text = "1 Boule de lumière activée";
                 }
-                else if (RadioButtonComp2CoupCritique.IsChecked == true)
+                else if (comp2 == "- Coup critique :\nDégâts = " + degatsInfliges + " à deux cibles\nBouclier = + " + (BouclierComp2 * 2) + " pendant 1 tour\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour")
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp2Num + " dégâts à deux ennemis.\nVous recevez " + (DegatsReelsComp2Num * 4) + " points de bouclier pour 1 tour.\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour.";
+                    BouclierComp2 *= 2;
+                    LabelInfo.Text = "Vous infligez " + degatsInfliges + " dégâts à deux ennemis.\nVous recevez " + BouclierComp2 + " points de bouclier pour 1 tour.\nLes 2 boules emmagasinent 33% des dégâts subis pendant un tour.";
+                    LabelBouleLumière.Text = "2 Boules de lumière activées";
                 }
-
-                Bouclier += DegatsReelsComp2Num * 4;
-                LabelBouleLumière.Text = "Boule(s) de lumière activée(s)";
+                Bouclier += BouclierComp2;
                 CdComp2 = 4;
                 CdBouleLumiere = 1;
                 if (CdComp1 > 0)
@@ -878,83 +796,71 @@ namespace UiMagam
                     CdPassifComp3 -= 1;
                 }
 
-
-                affichageInitial();
+                AffichageInitial();
                 LabelInfo.FontSize = 12;
-                PopUpDegatsReelsComp2.IsVisible = false;
             }
-            
-        }
-        private void ButtonAnnulerDegatsComp2_Click(object sender, EventArgs e)
-        {
-            PopUpDegatsReelsComp2.IsVisible = false;
         }
 
         private async void ButtonComp3_Click(object sender, EventArgs e)
         {
-            degatsInfliges = 3 + Intelligence / 2;
+            degatsInfliges = (int)Math.Round((double)3 + Intelligence / 2.0, MidpointRounding.AwayFromZero);
+
             int degatsEnnemiA = degatsInfliges;
-            int degatsEnnemiB = degatsEnnemiA + degatsEnnemiA / 4;
-            int degatsEnnemiC = degatsEnnemiA + degatsEnnemiA / 2;
-            int degatsEnnemiD = 6 + Intelligence;
+            int degatsEnnemiB = (int)Math.Round((double)degatsInfliges * 1.25, MidpointRounding.AwayFromZero);
+            int degatsEnnemiC = (int)Math.Round((double)degatsInfliges * 1.5, MidpointRounding.AwayFromZero);
+            int degatsEnnemiD = (int)Math.Round((double)6 + Intelligence, MidpointRounding.AwayFromZero);
 
             if (Beni() == true && Maudit() == false)
             {
-                degatsInfliges += degatsInfliges / 10;
-                degatsEnnemiA += degatsEnnemiA / 10;
-                degatsEnnemiB += degatsEnnemiB / 10;
-                degatsEnnemiC += degatsEnnemiC / 10;
-                degatsEnnemiD += degatsEnnemiD / 10;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 1.1, MidpointRounding.AwayFromZero);
+                degatsEnnemiA = (int)Math.Round((double)degatsEnnemiA * 1.1, MidpointRounding.AwayFromZero);
+                degatsEnnemiB = (int)Math.Round((double)degatsEnnemiB * 1.1, MidpointRounding.AwayFromZero);
+                degatsEnnemiC = (int)Math.Round((double)degatsEnnemiC * 1.1, MidpointRounding.AwayFromZero);
+                degatsEnnemiD = (int)Math.Round((double)degatsEnnemiD * 1.1, MidpointRounding.AwayFromZero);
             }
 
             else if (Maudit() == true && Beni() == false)
             {
-                degatsInfliges = 90 * degatsInfliges / 100;
-                degatsEnnemiA = 90 * degatsEnnemiA / 100;
-                degatsEnnemiB = 90 * degatsEnnemiB / 100;
-                degatsEnnemiC = 90 * degatsEnnemiC / 100;
-                degatsEnnemiD = 90 * degatsEnnemiD / 100;
+                degatsInfliges = (int)Math.Round((double)degatsInfliges * 0.9, MidpointRounding.AwayFromZero);
+                degatsEnnemiA = (int)Math.Round((double)degatsEnnemiA * 0.9, MidpointRounding.AwayFromZero);
+                degatsEnnemiB = (int)Math.Round((double)degatsEnnemiB * 0.9, MidpointRounding.AwayFromZero);
+                degatsEnnemiC = (int)Math.Round((double)degatsEnnemiC * 0.9, MidpointRounding.AwayFromZero);
+                degatsEnnemiD = (int)Math.Round((double)degatsEnnemiD * 0.9, MidpointRounding.AwayFromZero);
             }
 
-            bool comp2 = await DisplayAlert("Vous ne devriez pas exister", "- Echec critique : La compétence échoue\n\n- Coup normal :\nDégats ennemi A = " + degatsEnnemiA + "\nDégats ennemi B = " + degatsEnnemiB + "\nDégats ennemi C = " + degatsEnnemiC + "\nDégats ennemi D = " + degatsEnnemiD, "Ok", "Annuler");
+            string comp3 = await DisplayActionSheet("Vous ne devriez pas exister", "Annuler", null , "- Echec critique : La compétence échoue","- Dégâts cible 1 = " + degatsEnnemiA + "\n  Dégâts passif = " + degatsEnnemiA, "- Dégâts cible 2 = " + degatsEnnemiB + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB), "- Dégâts cible 3 = " + degatsEnnemiC + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB + degatsEnnemiC), "- Dégâts cible 4 = " + degatsEnnemiD + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB + degatsEnnemiC + degatsEnnemiD));
 
-            switch (comp2)
+            if (comp3 == "Annuler" || comp3 == null)
             {
-                case true:
-
-                    PopUpDegatsReelsComp3.IsVisible = true;
-
-                    break;
-
-                case false:
-
-                    break;
-            }
-
-
-        }
-        private void ButtonValiderDegatsComp3_Click(object sender, EventArgs e)
-        {
-            string DegatsReelsComp3 = EntryDegatsReelsComp3.Text;
-            int DegatsReelsComp3Num;
-
-            if (int.TryParse(DegatsReelsComp3, out DegatsReelsComp3Num) == false)
-            {
-                EntryDegatsReelsComp3.Text = "E";
+                return;
             }
             else
             {
-                if (RadioButtonComp3EchecCritique.IsChecked == true)
+                if (comp3 == "- Echec critique : La compétence échoue")
                 {
                     LabelInfo.Text = "La compétence échoue\n";
+                    degatsPassifComp3 = 0;
                 }
-
-                if (RadioButtonComp3CoupNormal.IsChecked == true)
+                if (comp3 == "- Dégâts cible 1 = " + degatsEnnemiA + "\n  Dégâts passif = " + degatsEnnemiA)
                 {
-                    LabelInfo.Text = "Vous infligez " + DegatsReelsComp3Num + " dégâts à la cible A, " + (125 * DegatsReelsComp3Num / 100) + " dégâts à la cible B, " + (150 * DegatsReelsComp3Num / 100) + " dégâts à la cible C, " + (DegatsReelsComp3Num * 2) + " dégâts à la cible D";
+                    degatsPassifComp3 = degatsEnnemiA;
+                    LabelInfo.Text = "Vous infligez " + degatsEnnemiA + " dégâts à la cible 1";
                 }
-
-                degatsPassifComp3 = DegatsReelsComp3Num + (125 * DegatsReelsComp3Num / 100) + (150 * DegatsReelsComp3Num / 100) + (DegatsReelsComp3Num * 2);
+                if (comp3 == "- Dégâts cible 2 = " + degatsEnnemiB + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB))
+                {
+                    degatsPassifComp3 = degatsEnnemiA + degatsEnnemiB;
+                    LabelInfo.Text = "Vous infligez " + degatsEnnemiA + " dégâts à la cible 1 et " + degatsEnnemiB + " dégâts à la cible 2";
+                }
+                if (comp3 == "- Dégâts cible 3 = " + degatsEnnemiC + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB + degatsEnnemiC))
+                {
+                    degatsPassifComp3 = degatsEnnemiA + degatsEnnemiB + degatsEnnemiC;
+                    LabelInfo.Text = "Vous infligez " + degatsEnnemiA + " dégâts à la cible 1, " + degatsEnnemiB + " dégâts à la cible 2 et " + degatsEnnemiC + " dégâts à a cible 3";
+                }
+                if (comp3 == "- Dégâts cible 4 = " + degatsEnnemiD + "\n  Dégâts passif = " + (degatsEnnemiA + degatsEnnemiB + degatsEnnemiC + degatsEnnemiD))
+                {
+                    degatsPassifComp3 = degatsEnnemiA + degatsEnnemiB + degatsEnnemiC + degatsEnnemiD;
+                    LabelInfo.Text = "Vous infligez " + degatsEnnemiA + " dégâts à la cible 1, " + degatsEnnemiB + " dégâts à la cible 2, " + degatsEnnemiC + " dégâts à a cible 3 et " + degatsEnnemiD + " dégâts à la cible 4";
+                }
 
                 CdComp3 = 4;
                 CdPassifComp3 = 5;
@@ -966,20 +872,19 @@ namespace UiMagam
                 {
                     CdComp2 -= 1;
                 }
+                if (CdComp2 == 3)
+                {
+                    Bouclier -= BouclierComp2;
+                }
                 if (CdBouleLumiere > 0)
                 {
                     CdBouleLumiere -= 1;
                 }
 
-                affichageInitial();
+                AffichageInitial();
                 LabelInfo.FontSize = 14;
-                PopUpDegatsReelsComp3.IsVisible = false;
             }
-            
-        }
-        private void ButtonAnnulerDegatsComp3_Click(object sender, EventArgs e)
-        {
-            PopUpDegatsReelsComp3.IsVisible = false;
+
         }
     }
 }
